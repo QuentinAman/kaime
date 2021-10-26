@@ -3,9 +3,9 @@ defmodule Theme01.App.Clock do
   import Ecto.Changeset
 
   schema "clocks" do
-    field :status, :boolean, default: true, null: false
-    field :time, :naive_datetime, null: false
-    field :user, :id, null: false
+    field :status, :boolean, default: true
+    field :time, :naive_datetime
+    field :user, :id
 
     timestamps()
   end

@@ -32,10 +32,10 @@ defmodule Theme01.App do
     Repo.one(query)
   end
 
-  def get_clocks_by_user(id) do
+  def get_clock_by_user(id) do
     query = from c in Clock, where: c.user == ^id
 
-    Repo.all(query)
+    Repo.one(query)
   end
 
   def get_all_by_user(id, ending, starting) do
