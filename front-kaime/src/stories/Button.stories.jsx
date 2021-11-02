@@ -1,4 +1,5 @@
 import Button from "../components/Button.vue";
+import { action } from "@storybook/addon-actions";
 
 export default {
   component: Button,
@@ -8,7 +9,8 @@ export default {
 const Template = (args) => ({
   components: { Button },
   setup: () => ({ args }),
-  template: "<Button>{{args.$slot}}</Button>",
+  template: '<Button @click="action">{{args.$slot}}</Button>',
+  methods: { action: action("@click") }
 });
 
 export const Default = Template.bind({});
