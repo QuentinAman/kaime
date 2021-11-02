@@ -30,7 +30,7 @@ let displayTimes = ref(false);
       <WorkingTime :working-time="workingTime" :is-creating="false" />
     </div>
   </div>
-  <WorkingTime :is-creating="true" />
+  <WorkingTime style="margin-bottom: 5em" :is-creating="true" />
 </template>
 
 <style scoped>
