@@ -67,6 +67,5 @@
 	svg {
 		fill: none;
 		stroke: none;
-		width: 4em;
 	}
 </style>
