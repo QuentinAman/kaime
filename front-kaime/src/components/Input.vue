@@ -11,12 +11,11 @@ defineProps({
   <label :class="{ empty: !value }">
     <p v-if="placeholder">{{ placeholder }}</p>
     <input type="text" v-model="value" />
-    <Icon v-if="icon" :name="icon"/>
+    <Icon v-if="icon" :name="icon" @click="$emit('icon-click', $event)" />
   </label>
 </template>
 
 <style scoped>
-
 svg {
   width: 1em;
   margin: 1em;

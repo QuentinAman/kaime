@@ -1,4 +1,5 @@
 import Input from "../components/Input.vue";
+import { action } from "@storybook/addon-actions";
 
 export default {
   component: Input,
@@ -8,7 +9,8 @@ export default {
 const Template = (args) => ({
   components: { Input },
   setup: () => ({ args }),
-  template: "<Input v-bind=args />",
+  template: '<Input v-bind=args @icon-click="iconClick" />',
+  methods: { iconClick: action("@icon-click") },
 });
 
 export const Default = Template.bind({});
@@ -26,11 +28,11 @@ export const WithIcon = Template.bind({});
 WithIcon.args = {
   value: "Value",
   icon: "Cross",
-}
+};
 
 export const PlaceholderWithIcon = Template.bind({});
 PlaceholderWithIcon.args = {
   placeholder: "Placeholder",
   value: "Value",
   icon: "Cross",
-}
+};
