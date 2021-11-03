@@ -9,6 +9,7 @@ const getDegrees = () => {
   return {
     hour: toDegree(now.getHours() / 12),
     minute: toDegree(now.getMinutes() / 60),
+    seconds: toDegree(now.getSeconds() / 60),
   };
 };
 
@@ -16,12 +17,14 @@ const init = getDegrees();
 
 const hour = ref(init.hour);
 const minute = ref(init.minute);
+const seconds = ref(init.seconds);
 
 let interval = setInterval(() => {
   const degrees = getDegrees();
 
   hour.value = degrees.hour;
   minute.value = degrees.minute;
+  seconds.value = degrees.seconds;
 }, 1000);
 
 onUnmounted(() => clearInterval(interval));
@@ -34,9 +37,10 @@ onUnmounted(() => clearInterval(interval));
       <div class="dot" />
     </div>
     <div class="circle">
-      <div class="bar" :style="`--rotate: ${hour}deg`" />
+      <div class="bar hour" :style="`--rotate: ${hour}deg`" />
       <div class="center"></div>
-      <div class="bar" :style="`--rotate: ${minute}deg`" />
+      <div class="bar minutes" :style="`--rotate: ${minute}deg`" />
+      <div class="bar seconds" :style="`--rotate: ${seconds}deg`" />
     </div>
   </div>
 </template>
@@ -62,7 +66,7 @@ onUnmounted(() => clearInterval(interval));
 .bar {
   position: absolute;
 
-  height: 0.5em;
+  height: 0.35em;
   width: 1.5em;
   background-color: currentColor;
   border-radius: 1em;
@@ -70,11 +74,20 @@ onUnmounted(() => clearInterval(interval));
   top: 50%;
   left: 50%;
   transform: translateY(-50%) rotate(var(--rotate, 0deg));
-  transition-property: transform;
 }
 
-.bar:last-of-type {
+.bar.hour {
+  width: 1em;
+}
+
+.bar.minutes {
+  width: 2em;
+}
+
+.bar.seconds {
   width: 2.25em;
+  height: 0.15em;
+  opacity: 0.25;
 }
 
 .dots {
@@ -94,7 +107,7 @@ onUnmounted(() => clearInterval(interval));
 
 .center {
   position: absolute;
-  width: 0.75em;
-  height: 0.75em;
+  width: 0.5em;
+  height: 0.5em;
 }
 </style>
