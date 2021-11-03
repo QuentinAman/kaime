@@ -1,22 +1,19 @@
 {
-  "Story": {
-    "prefix": "sb",
-    "body": [
-      "import $1 from '../components/$1.vue';",
-      "",
-      "export default {",
-      "\tcomponents: { $1 },",
-      "\ttitle: '${3|Components,Page|}/$1',",
-      "}",
-      "",
-      "const Template = (args) => ({",
-      "\tcomponents: { $1 },",
-      "\tsetup: () => ({ args }),",
-      "\ttemplate: '<$1 v-bind=\"args\" />',",
-      "});",
-      "",
-      "export const Default = Template.bind({});",
-      "Default.args = {$0};"
-    ]
-  }
+	"Story": {
+		"prefix": "story",
+		"body": [
+			"<script>",
+			"\timport { Template, Meta, Story } from '@storybook/addon-svelte-csf';",
+			"\timport $1 from '../lib/components/$1.svelte';",
+			"</script>",
+			"",
+			"<Meta title=\"Components/$1\" component={$1} />",
+			"",
+			"<Template let:args>",
+			"\t<$1 {...args} />",
+			"</Template>",
+			"",
+			"<Story name=\"Default\" args={{$0}} />"
+		]
+	}
 }
