@@ -1,12 +1,12 @@
 <script>
 	import { Template, Meta, Story } from '@storybook/addon-svelte-csf';
-	import Card from '../lib/components/Card.svelte';
+	import User from '../lib/components/User.svelte';
 </script>
 
-<Meta title="Components/Card" component={Card} />
+<Meta title="Components/User" component={User} />
 
 <Template let:args>
-	<Card {...args} />
+	<User {...args} />
 </Template>
 
 <Story
