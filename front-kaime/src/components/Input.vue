@@ -1,7 +1,9 @@
 <script setup>
+import Icon from "../components/Icon.vue";
 defineProps({
   placeholder: String,
   value: String,
+  icon: String,
 });
 </script>
 
@@ -9,13 +11,20 @@ defineProps({
   <label :class="{ empty: !value }">
     <p v-if="placeholder">{{ placeholder }}</p>
     <input type="text" v-model="value" />
+    <Icon v-if="icon" :name="icon"/>
   </label>
 </template>
 
 <style scoped>
+
+svg {
+  width: 1em;
+  margin: 1em;
+}
+
 label {
   position: relative;
-  display: block;
+  display: flex;
   border: 1px solid rgb(var(--primary));
   border-radius: 1em;
 }
