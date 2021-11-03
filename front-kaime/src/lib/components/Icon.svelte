@@ -50,6 +50,7 @@
 	 * @type {keyof typeof icons}
 	 */
 	export let name;
+	export let style;
 
 	const regex = /(stroke|fill)="[^"]+"/g;
 	const replacer = (attribute) => {
@@ -58,7 +59,7 @@
 	};
 </script>
 
-<svg viewBox={icons[name].viewBox} on:click>
+<svg {style} viewBox={icons[name].viewBox} on:click on:mousedown|preventDefault>
 	{@html icons[name].paths.replace(regex, replacer)}
 </svg>
 

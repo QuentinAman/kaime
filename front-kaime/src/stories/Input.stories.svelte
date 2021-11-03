@@ -34,7 +34,7 @@
 	name="With Icon"
 	args={{
 		value: 'Value',
-		icon: 'Cross'
+		icon: 'Burger'
 	}}
 />
 
@@ -43,6 +43,25 @@
 	args={{
 		placeholder: 'Placeholder',
 		value: 'Value',
-		icon: 'Cross'
+		icon: 'Burger'
+	}}
+/>
+
+<Story
+	name="With Options"
+	args={{
+		options: ["John Doe", "Maxime Di Natale", "Rudy Gonzalez", "Quentin Aman"],
+		value: 'Value',
+		icon: 'Burger'
+	}}
+/>
+
+<Story
+	name="With Options And Placeholder"
+	args={{
+		options: ["John Doe", "Maxime Di Natale", "Rudy Gonzalez", "Quentin Aman"],
+		placeholder: 'Placeholder',
+		value: 'Value',
+		icon: 'Burger'
 	}}
 />
