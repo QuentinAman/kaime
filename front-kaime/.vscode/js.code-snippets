@@ -1,0 +1,19 @@
+{
+	"Story": {
+		"prefix": "story",
+		"body": [
+			"<script>",
+			"\timport { Template, Meta, Story } from '@storybook/addon-svelte-csf';",
+			"\timport $1 from '../lib/components/$1.svelte';",
+			"</script>",
+			"",
+			"<Meta title=\"Components/$1\" component={$1} />",
+			"",
+			"<Template let:args>",
+			"\t<$1 {...args} />",
+			"</Template>",
+			"",
+			"<Story name=\"Default\" args={{$0}} />"
+		]
+	}
+}

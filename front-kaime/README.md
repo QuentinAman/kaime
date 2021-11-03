@@ -1,20 +1,38 @@
-# Kaïme
+# create-svelte
 
-### Presentation
+Everything you need to build a Svelte project, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/master/packages/create-svelte);
 
-This project is the front part of an Epitech Project developed by Maxime Di Natale, Rudy Gonzales, Quentin Reynaud and Quentin Aman.
+## Creating a project
 
-It's a time manager project that has been written in **Vue.JS 3** and **Elixir**.
+If you're seeing this, you've probably already done this step. Congrats!
 
-To run the front part of the project, you need to clone the repository, then go in the root folder of the project and type **"yarn"** command to install all dependancies. Then, you can use the **"yarn dev"** to start the project and access it on your browser by the **localhost:3000** address.
+```bash
+# create a new project in the current directory
+npm init svelte@next
 
-### StoryBook
+# create a new project in my-app
+npm init svelte@next my-app
+```
 
-Storybook is a docs components library used in this project, to access to the storybook page, you need to run **"yarn storybook"** and then go to **localhost:6006**
+> Note: the `@next` is temporary
 
-#### For developer
+## Developing
 
-To create a new story, you need to follow thoses steps.
+Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
 
--   Create a file in the "stories" folder "componentname.stories.jsx".
--   Then, you can use the "sb" snippet and complete the file.
+```bash
+npm run dev
+
+# or start the server and open the app in a new browser tab
+npm run dev -- --open
+```
+
+## Building
+
+Before creating a production version of your app, install an [adapter](https://kit.svelte.dev/docs#adapters) for your target environment. Then:
+
+```bash
+npm run build
+```
+
+> You can preview the built app with `npm run preview`, regardless of whether you installed an adapter. This should _not_ be used to serve your app in production.
