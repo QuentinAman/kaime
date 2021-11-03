@@ -24,7 +24,7 @@ a {
   background-color: rgb(var(--primary));
   color: white;
   padding: 1em;
-  gap: 0.5em;
+  gap: 2em;
   text-decoration: none;
   font-size: 1.5em;
   font-weight: 700;

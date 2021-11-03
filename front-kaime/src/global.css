@@ -3,6 +3,8 @@
 :root {
   --primary: 230, 57, 70;
 
+  --tabel: 768px;
+
   font-family: "Nunito", sans-serif;
   color: rgb(var(--primary));
 }
