@@ -21,3 +21,16 @@ Placeholder.args = {
   placeholder: "Placeholder",
   value: "Value",
 };
+
+export const WithIcon = Template.bind({});
+WithIcon.args = {
+  value: "Value",
+  icon: "Cross",
+}
+
+export const PlaceholderWithIcon = Template.bind({});
+PlaceholderWithIcon.args = {
+  placeholder: "Placeholder",
+  value: "Value",
+  icon: "Cross",
+}
