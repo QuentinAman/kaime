@@ -6,21 +6,20 @@ export default {
   title: "Components/Button",
 };
 
-const Template = (args) => ({
+const Template = ({ slot, ...args }) => ({
   components: { Button },
-  setup: () => ({ args }),
-  template: '<Button @click="action" :reverted="args.reverted">{{args.$slot}}</Button>',
-  methods: { action: action("@click") }
+  setup: () => ({ args, slot }),
+  template: '<Button @click="action" v-bind="args">{{ slot }}</Button>',
+  methods: { action: action("@click") },
 });
 
 export const Default = Template.bind({});
 Default.args = {
-  $slot: "Value",
+  slot: "Text",
 };
 
 export const Reverted = Template.bind({});
 Reverted.args = {
-  $slot: "Value",
-  reverted: true
+  slot: "Text",
+  reverted: true,
 };
-
