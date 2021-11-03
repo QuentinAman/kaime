@@ -23,11 +23,9 @@
 </script>
 
 <div class="container">
-	<div class="dots">
-		<div class="dot" />
-		<div class="dot" />
-	</div>
 	<div class="circle">
+		<div class="dot left" />
+		<div class="dot right" />
 		<div class="bar hour" style="--rotate: {hour}deg" />
 		<div class="center" />
 		<div class="bar minutes" style="--rotate: {minute}deg" />
@@ -80,19 +78,25 @@
 		opacity: 0.25;
 	}
 
-	.dots {
-		display: flex;
-		justify-content: center;
-		gap: 1em;
-		margin-bottom: 0.5em;
-	}
-
 	.center,
 	.dot {
 		width: 1em;
 		height: 1em;
 		background-color: currentColor;
 		border-radius: 50%;
+	}
+
+	.dot {
+		position: absolute;
+		bottom: calc(100% + 0.75em);
+	}
+
+	.dot.left {
+		transform: translateX(-75%);
+	}
+
+	.dot.right {
+		transform: translateX(75%);
 	}
 
 	.center {

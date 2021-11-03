@@ -50,7 +50,7 @@
 	 * @type {keyof typeof icons}
 	 */
 	export let name;
-	export let style;
+	export let style = '';
 
 	const regex = /(stroke|fill)="[^"]+"/g;
 	const replacer = (attribute) => {

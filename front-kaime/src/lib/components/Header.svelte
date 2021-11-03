@@ -8,16 +8,30 @@
 
 <header>
 	<Icon name="Logout" />
-	<Logo />
+	<p>Se déconnecter</p>
+	<div class="logo">
+		<Logo />
+	</div>
+	<p>Lancer le timer</p>
 	<Icon name="Burger" on:click={() => (open = true)} />
 </header>
 <Nav bind:open />
 
 <style>
+	p {
+		display: none;
+	}
+
+	.logo {
+		font-size: 0.75em;
+	}
+
 	header {
 		display: flex;
 		justify-content: space-between;
-		gap: 2em;
+		align-items: center;
+		gap: 1em;
+		padding: 0.25em;
 	}
 
 	header > :global(svg) {
@@ -27,6 +41,15 @@
 	@media (min-width: 768px) {
 		header {
 			justify-content: flex-start;
+		}
+
+		p {
+			display: initial;
+			margin-right: 5em;
+		}
+
+		header > :global(svg:last-of-type) {
+			margin-left: auto;
 		}
 	}
 </style>
