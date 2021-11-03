@@ -1,12 +1,18 @@
+<script setup>
+defineProps({
+  reverted: Boolean
+})
+</script>
+
 <template>
-  <button @click="$emit('click', $event)"><slot /></button>
+  <button @click="$emit('click', $event)" :class="{reverted}"><slot /></button>
 </template>
 
 <style scoped>
   button {
     cursor: pointer;
     text-transform: uppercase;
-    background-color: #E63946;
+    background-color: rgb(var(--primary));
     padding: 1em 2em;
     outline: none;
     font: inherit;
@@ -14,6 +20,11 @@
     border: none;
     border-radius: 2em;
     transition-property: transform;
+  }
+
+  button.reverted {
+    background-color: white;
+    color: rgb(var(--primary));
   }
 
   button:hover {
