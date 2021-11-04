@@ -29,5 +29,6 @@
 		height: 1px;
 		background-color: currentColor;
 		margin-left: 6ch;
+		opacity: 0.25;
 	}
 </style>
