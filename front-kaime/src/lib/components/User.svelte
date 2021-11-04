@@ -119,10 +119,13 @@
 		padding: 1em;
 		align-items: center;
 		gap: 1em;
+	}
+
+	.userinfo {
 		pointer-events: none;
 	}
 
-	.header .userinfo .email {
+	.email {
 		font-weight: bold;
 	}
 

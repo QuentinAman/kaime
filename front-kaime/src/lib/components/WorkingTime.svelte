@@ -2,6 +2,7 @@
 	// @ts-nocheck
 
 	export let data = {};
+	export let left = '0';
 
 	const getPercent = (date) => {
 		const start = new Date(date);
@@ -32,7 +33,7 @@
 	$: bottom = getPercent(data.end);
 </script>
 
-<div class="container" style="top: {top * 100}%; bottom: {bottom * 100}%;">
+<div class="container" style="top: {top * 100}%; bottom: {bottom * 100}%; left: {left};">
 	<div class="content">
 		<div class="handle" draggable="true" on:drag={(e) => drag('start', e)} />
 		<div class="handle" draggable="true" on:drag={(e) => drag('end', e)} />
