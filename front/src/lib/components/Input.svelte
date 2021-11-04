@@ -13,7 +13,7 @@
 	 * @type {Icon["$$prop_def"]["name"]}
 	 */
 	export let icon = null;
-	export let onIconClick;
+	export let onIconClick = null;
 	let focus = false;
 </script>
 
@@ -70,7 +70,7 @@
 		position: relative;
 		display: flex;
 		border: 1px solid rgb(var(--primary));
-		border-radius: 1em;
+		border-radius: 3em;
 	}
 
 	label > :global(svg) {
@@ -89,7 +89,7 @@
 		padding: 0 0.5em;
 		top: 50%;
 		border-radius: 1em;
-		left: 0.5em;
+		left: 1em;
 		transform: translateY(-50%);
 		transition-property: top;
 	}
@@ -97,7 +97,7 @@
 	input {
 		border: none;
 		width: 100%;
-		padding: 1em;
+		padding: 1em 2em;
 		background: none;
 		border-radius: inherit;
 		outline: none;

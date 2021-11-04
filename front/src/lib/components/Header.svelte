@@ -31,11 +31,13 @@
 		justify-content: space-between;
 		align-items: center;
 		gap: 1em;
-		padding: 0.25em;
+		padding: 1em;
+		margin-top: 1em;
 	}
 
 	header > :global(svg) {
 		cursor: pointer;
+		width: 4em;
 	}
 
 	@media (min-width: 768px) {

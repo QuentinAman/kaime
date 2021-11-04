@@ -80,8 +80,8 @@
 
 	.center,
 	.dot {
-		width: 1em;
-		height: 1em;
+		width: 0.7em;
+		height: 0.75em;
 		background-color: currentColor;
 		border-radius: 50%;
 	}
