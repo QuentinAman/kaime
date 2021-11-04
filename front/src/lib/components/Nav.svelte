@@ -35,6 +35,7 @@
 		transform: translateX(100%);
 		color: white;
 		transition-property: transform;
+		z-index: 99999;
 	}
 
 	nav.open {
