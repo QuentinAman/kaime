@@ -12,7 +12,6 @@
 	<div class="logo">
 		<Logo />
 	</div>
-	<p>Lancer le timer</p>
 	<Icon name="Burger" on:click={() => (open = true)} />
 </header>
 <Nav bind:open />
@@ -22,10 +21,6 @@
 		display: none;
 	}
 
-	.logo {
-		font-size: 0.75em;
-	}
-
 	header {
 		display: flex;
 		justify-content: space-between;
@@ -33,6 +28,7 @@
 		gap: 1em;
 		padding: 1em;
 		margin-top: 1em;
+		font-size: 0.75em;
 	}
 
 	header > :global(svg) {
