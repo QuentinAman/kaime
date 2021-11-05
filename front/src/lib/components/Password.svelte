@@ -6,4 +6,4 @@
 	export let autocomplete = 'new-password';
 </script>
 
-<Input bind:value type="password" {placeholder} {autocomplete} on:update />
+<Input bind:value type="password" {placeholder} {autocomplete} on:update {...$$restProps} />

@@ -7,6 +7,7 @@
 	import Form from '$lib/components/Form.svelte';
 	import Logo from '$lib/components/Logo.svelte';
 	import Password from '$lib/components/Password.svelte';
+	import { getSelf } from '$lib/functions';
 	import { cookie } from '$lib/stores/cookie';
 	import { API } from '$lib/utils';
 
@@ -20,7 +21,7 @@
 		});
 
 		$cookie.token = token;
-		$session.user = user;
+		$session.user = await getSelf(token);
 		goto('/account');
 	};
 </script>

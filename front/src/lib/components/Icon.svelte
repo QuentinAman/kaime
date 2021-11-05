@@ -41,6 +41,33 @@
 			paths: `<line x1="10" y1="2" x2="10" y2="21" stroke="white" stroke-width="4" stroke-linecap="round"/>
 <line x1="2" y1="14" x2="2" y2="21" stroke="white" stroke-width="4" stroke-linecap="round"/>
 <line x1="18" y1="10" x2="18" y2="21" stroke="white" stroke-width="4" stroke-linecap="round"/>`
+		},
+		Warning: {
+			viewBox: '0 0 20 84',
+			paths: `
+<line x1="10" y1="10" x2="10" y2="47" stroke="#E63946" stroke-width="20" stroke-linecap="round"/>
+<circle cx="10" cy="74" r="10" fill="#E63946"/>
+`
+		},
+		Danger: {
+			viewBox: '0 0 60 54',
+			paths: `
+<circle cx="13" cy="11" r="11" fill="#E63946"/>
+<circle cx="47" cy="11" r="11" fill="#E63946"/>
+<path d="M53.9496 47.2853C46.1095 41.1526 25.734 32.4525 6.95312 46.714" stroke="#E63946" stroke-width="12" stroke-linecap="round"/>
+`
+		},
+		Success: {
+			viewBox: '0 0 86 65',
+			paths: `
+<path d="M10 34.5L30.5 55L75.5 10" stroke="#E63946" stroke-width="20" stroke-linecap="round" stroke-linejoin="round"/>
+`
+		},
+		Notification: {
+			viewBox: '0 0 70 72',
+			paths: `
+<path fill-rule="evenodd" clip-rule="evenodd" d="M42.8808 8.41906C42.9176 8.11786 42.9365 7.81114 42.9365 7.5C42.9365 3.35786 39.5787 0 35.4365 0C31.2944 0 27.9365 3.35786 27.9365 7.5C27.9365 7.83859 27.959 8.17193 28.0024 8.49863C17.6665 11.7199 10.1634 21.3639 10.1634 32.7605V50.5463H7.62251C3.41271 50.5463 0 53.959 0 58.1688C0 62.3786 3.41271 65.7913 7.62251 65.7913H20.1634H25.7814C27.4808 69.4573 31.1935 72 35.5 72C39.8065 72 43.5192 69.4573 45.2186 65.7913H50.9801H62.2505C66.4603 65.7913 69.873 62.3786 69.873 58.1688C69.873 53.959 66.4603 50.5463 62.2505 50.5463H60.9801V32.7604C60.9801 21.2685 53.3508 11.5585 42.8808 8.41906Z" fill="#E63946"/>
+`
 		}
 	};
 </script>
@@ -73,6 +100,7 @@
 		fill: none;
 		stroke: none;
 		width: var(--width, 100%);
+		height: var(--height);
 
 		transform: rotate(var(--rotate, 0deg)) scale(var(--scale, 1));
 		transition-property: transform;

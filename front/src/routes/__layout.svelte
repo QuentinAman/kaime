@@ -6,12 +6,15 @@
 	export async function load({ page, session }: LoadInput) {
 		const output: LoadOutput = {};
 
+		const redirect = (endpoint) => {
+			output.status = 302;
+			output.redirect = endpoint;
+		};
+
 		if (!session.user && !pages.includes(page.path)) {
-			output.status = 302;
-			output.redirect = '/login';
+			redirect('/login');
 		} else if (session.user && pages.includes(page.path)) {
-			output.status = 302;
-			output.redirect = '/account';
+			redirect('/account');
 		}
 
 		return output;
@@ -19,13 +22,18 @@
 </script>
 
 <script>
-	import { page } from '$app/stores';
+	import { page, session } from '$app/stores';
 	import Header from '$lib/components/Header.svelte';
+	import Modals from '$lib/components/Modals.svelte';
+	import Snacks from '$lib/components/Snacks.svelte';
 
 	import '../global.css';
 </script>
 
+<Snacks />
+<Modals />
 {#if !pages.includes($page.path)}
 	<Header path={$page.path} />
 {/if}
+<!-- <pre>{JSON.stringify($session, null, 2)}</pre> -->
 <slot />

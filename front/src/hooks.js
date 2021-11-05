@@ -1,5 +1,4 @@
-import { parseCookie } from '$lib/functions';
-import { API } from '$lib/utils';
+import { getSelf, parseCookie } from '$lib/functions';
 
 /**
  * @type {import("@sveltejs/kit").GetSession}
@@ -7,10 +6,7 @@ import { API } from '$lib/utils';
 export const getSession = async (request) => {
 	const { token } = parseCookie(request.headers.cookie);
 
-	if (token) API.headers.Authorization = `Bearer ${token}`;
-	else delete API.headers.Authorization;
+	const user = await getSelf(token);
 
-	const user = await API.get('/users/self');
-
-	return { user: user || null };
+	return { user };
 };

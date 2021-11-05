@@ -12,8 +12,6 @@ function setCookie(object) {
 	if (!browser) return;
 	const cookies = getCookie();
 
-	console.log(object);
-
 	Object.keys({ ...cookies, ...object }).forEach((key) => {
 		if (key in object) document.cookie = `${key}=${object[key]}; SameSite=None; Secure`;
 		else document.cookie = `${key}=; Max-Age=-99999`;
