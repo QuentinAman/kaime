@@ -45,7 +45,7 @@ defmodule BackWeb.UserController do
     render(conn, "show.json", user: user)
   end
 
-  def show(conn, _req) do
+  def get_self(conn, _req) do
     user = App.get_user!(conn.assigns[:id])
     render(conn, "show.json", user: user)
   end
