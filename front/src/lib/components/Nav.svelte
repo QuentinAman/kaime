@@ -12,7 +12,7 @@
 </script>
 
 <nav class:open>
-	<Icon name="Cross" on:click={() => (open = false)} />
+	<Icon name="Cross" click={() => (open = false)} />
 	<ul>
 		{#each Object.keys(links) as href}
 			<li>

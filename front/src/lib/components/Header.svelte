@@ -15,7 +15,7 @@
 		<Logo clickable />
 	</div>
 	<div class="burger">
-		<Icon name="Burger" on:click={() => (open = true)} --width="4em" />
+		<Icon name="Burger" click={() => (open = true)} --width="4em" />
 	</div>
 </header>
 <Nav
@@ -55,6 +55,7 @@
 	@media (min-width: 768px) {
 		header {
 			justify-content: flex-start;
+			padding: 1em 2.5em;
 
 			.burger {
 				margin-left: auto;

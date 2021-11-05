@@ -3,7 +3,6 @@
 	import Capitalize from '$lib/components/Capitalize.svelte';
 	import Email from '$lib/components/Email.svelte';
 	import Form from '$lib/components/Form.svelte';
-	import Input from '$lib/components/Input.svelte';
 	import Logo from '$lib/components/Logo.svelte';
 	import Password from '$lib/components/Password.svelte';
 

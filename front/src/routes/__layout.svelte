@@ -20,11 +20,9 @@
 	import Header from '$lib/components/Header.svelte';
 
 	import '../global.css';
-	import { cookie } from '$lib/stores/cookie';
 </script>
 
 {#if !pages.includes($page.path)}
-	<Header />
+	<Header path={$page.path} />
 {/if}
-<pre>{JSON.stringify($cookie, null, 2)}</pre>
 <slot />
