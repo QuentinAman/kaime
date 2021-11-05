@@ -7,8 +7,7 @@ defmodule Back.App.User do
     field :firstname, :string
     field :lastname, :string
     field :password, :string
-    field :role, :integer
-    field :username, :string
+    field :role, :integer, default: 0
     field :team, :id
     field :clock, :id
 
@@ -18,8 +17,8 @@ defmodule Back.App.User do
   @doc false
   def changeset(user, attrs) do
     user
-    |> cast(attrs, [:username, :email, :password, :role, :firstname, :lastname])
-    |> validate_required([:username, :email, :password, :role, :firstname, :lastname])
+    |> cast(attrs, [:email, :password, :role, :firstname, :lastname])
+    |> validate_required([:email, :password, :role, :firstname, :lastname])
     |> hash_password()
   end
 
