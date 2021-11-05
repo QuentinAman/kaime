@@ -4,7 +4,6 @@
 
 	export let placeholder = '';
 	export let value = '';
-	export let type = 'text';
 	/**
 	 * @type {string[]}
 	 */
@@ -17,16 +16,13 @@
 	export let onIconClick = null;
 	let focus = false;
 
-	const handleInputType = e => {
-		e.target.type = type;
-	};
 </script>
 
 <label class:empty={!value}>
 	{#if placeholder}
 		<p>{placeholder}</p>
 	{/if}
-	<input on:input={handleInputType} bind:value on:focus={() => focus = true} on:blur={() => focus = false}/>
+	<input bind:value on:focus={() => focus = true} on:blur={() => focus = false}/>
 	{#if icon}
 		<Icon name={icon} on:mousedown={onIconClick} style="cursor: {onIconClick ? "pointer" : "initial"}"/>
 	{/if}

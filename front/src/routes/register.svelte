@@ -17,7 +17,7 @@
     <Input bind:value={email} placeholder="Email"/>
     <Input bind:value={firstname} placeholder="Prénom"/>
     <Input bind:value={lastname} placeholder="Nom"/>
-    <Input type="password" bind:value={password} placeholder="Mot de passe"/>
+    <Input bind:value={password} placeholder="Mot de passe"/>
     <Button>Créer mon compte</Button>
     <p>Vous avez déjà un compte ?</p>
     <a href="/login">Se connecter</a>

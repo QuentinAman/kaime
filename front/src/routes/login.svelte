@@ -13,7 +13,7 @@ import Input from "$lib/components/Input.svelte";
   <Logo />
   <form>
     <Input bind:value={email} placeholder="Email"/>
-    <Input type="password" bind:value={password} placeholder="Mot de passe"/>
+    <Input bind:value={password} placeholder="Mot de passe"/>
     <Button>Se connecter</Button>
     <p>Vous n'avez pas de compte ?</p>
     <a href="/register">Créer un compte</a>
