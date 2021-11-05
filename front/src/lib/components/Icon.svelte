@@ -67,5 +67,7 @@
 	svg {
 		fill: none;
 		stroke: none;
+		width: var(--width, 100%);
+		transform: rotate(var(--rotate, 0deg));
 	}
 </style>

@@ -12,7 +12,7 @@
 	<div class="bar" />
 </div>
 
-<style scoped>
+<style>
 	.container {
 		position: relative;
 		display: flex;

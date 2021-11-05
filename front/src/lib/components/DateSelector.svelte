@@ -19,15 +19,15 @@
 
 <div>
 	<button on:click={() => add(-1)}>
-		<Icon name="Arrow" />
+		<Icon name="Arrow" --width="1.5em" --rotate="180deg" />
 	</button>
 	<span>{text}</span>
 	<button on:click={() => add(1)}>
-		<Icon name="Arrow" />
+		<Icon name="Arrow" --width="1.5em" />
 	</button>
 </div>
 
-<style>
+<style lang="scss">
 	div {
 		display: flex;
 		justify-content: space-between;
@@ -54,21 +54,13 @@
 
 		border-radius: 50%;
 		transition-property: transform;
-	}
 
-	button:hover {
-		transform: scale(1.05);
-	}
+		&:hover {
+			transform: scale(1.05);
+		}
 
-	button:active {
-		transform: scale(0.95);
-	}
-
-	button:first-of-type > :global(svg) {
-		transform: rotate(180deg);
-	}
-
-	button > :global(svg) {
-		width: 1.5em;
+		&:active {
+			transform: scale(0.95);
+		}
 	}
 </style>

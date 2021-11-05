@@ -95,11 +95,9 @@
 	</p>
 {/if}
 
-<style>
+<style lang="scss">
 	.endTime {
 		position: fixed;
-
-		transform-origin: top;
 
 		background-color: rgb(var(--primary));
 		color: white;
@@ -107,6 +105,7 @@
 		padding: 0.5em 1em;
 		border-radius: 1em;
 
+		transform-origin: bottom;
 		transform: translate(-50%, -200%);
 
 		z-index: 10;
@@ -145,14 +144,14 @@
 		right: 0;
 		height: 1em;
 		z-index: 10;
-	}
 
-	.handle.top {
-		top: 0;
-	}
+		&.top {
+			top: 0;
+		}
 
-	.handle.bottom {
-		bottom: 0;
+		&.bottom {
+			bottom: 0;
+		}
 	}
 
 	.container {

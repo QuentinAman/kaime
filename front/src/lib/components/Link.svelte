@@ -17,7 +17,7 @@
 	<slot />
 </a>
 
-<style scoped>
+<style lang="scss">
 	a {
 		display: flex;
 		justify-content: center;
@@ -31,15 +31,15 @@
 		font-weight: 700;
 
 		transition-property: background-color;
-	}
 
-	a.current {
-		color: rgb(var(--primary));
-		background-color: white;
-	}
+		&.current {
+			color: rgb(var(--primary));
+			background-color: white;
+		}
 
-	a.icon {
-		justify-content: space-between;
+		&.icon {
+			justify-content: space-between;
+		}
 	}
 
 	div {
@@ -51,10 +51,10 @@
 		width: 1.25em;
 		height: 1.25em;
 		padding: 0.15em;
-	}
 
-	div :global(svg) {
-		width: 100%;
-		height: 100%;
+		& :global(svg) {
+			width: 100%;
+			height: 100%;
+		}
 	}
 </style>
