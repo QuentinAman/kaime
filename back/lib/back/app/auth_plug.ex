@@ -17,8 +17,6 @@ defmodule Back.AuthPlug do
         halt(conn)
 
       list ->
-        IO.inspect(list)
-
         list
         |> List.first()
         |> String.split()
