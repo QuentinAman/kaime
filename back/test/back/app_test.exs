@@ -8,7 +8,7 @@ defmodule Back.AppTest do
 
     import Back.AppFixtures
 
-    @invalid_attrs %{email: nil, firstname: nil, lastname: nil, password: nil, role: nil, username: nil}
+    @invalid_attrs %{email: nil, firstname: nil, lastname: nil, password: nil, role: nil}
 
     test "list_users/0 returns all users" do
       user = user_fixture()
@@ -21,7 +21,13 @@ defmodule Back.AppTest do
     end
 
     test "create_user/1 with valid data creates a user" do
-      valid_attrs = %{email: "some email", firstname: "some firstname", lastname: "some lastname", password: "some password", role: 42, username: "some username"}
+      valid_attrs = %{
+        email: "some email",
+        firstname: "some firstname",
+        lastname: "some lastname",
+        password: "some password",
+        role: 42
+      }
 
       assert {:ok, %User{} = user} = App.create_user(valid_attrs)
       assert user.email == "some email"
@@ -29,7 +35,6 @@ defmodule Back.AppTest do
       assert user.lastname == "some lastname"
       assert user.password == "some password"
       assert user.role == 42
-      assert user.username == "some username"
     end
 
     test "create_user/1 with invalid data returns error changeset" do
@@ -38,7 +43,14 @@ defmodule Back.AppTest do
 
     test "update_user/2 with valid data updates the user" do
       user = user_fixture()
-      update_attrs = %{email: "some updated email", firstname: "some updated firstname", lastname: "some updated lastname", password: "some updated password", role: 43, username: "some updated username"}
+
+      update_attrs = %{
+        email: "some updated email",
+        firstname: "some updated firstname",
+        lastname: "some updated lastname",
+        password: "some updated password",
+        role: 43
+      }
 
       assert {:ok, %User{} = user} = App.update_user(user, update_attrs)
       assert user.email == "some updated email"
@@ -46,7 +58,6 @@ defmodule Back.AppTest do
       assert user.lastname == "some updated lastname"
       assert user.password == "some updated password"
       assert user.role == 43
-      assert user.username == "some updated username"
     end
 
     test "update_user/2 with invalid data returns error changeset" do
@@ -100,7 +111,9 @@ defmodule Back.AppTest do
       workingtime = workingtime_fixture()
       update_attrs = %{end: ~N[2021-11-04 08:22:00], start: ~N[2021-11-04 08:22:00]}
 
-      assert {:ok, %Workingtime{} = workingtime} = App.update_workingtime(workingtime, update_attrs)
+      assert {:ok, %Workingtime{} = workingtime} =
+               App.update_workingtime(workingtime, update_attrs)
+
       assert workingtime.end == ~N[2021-11-04 08:22:00]
       assert workingtime.start == ~N[2021-11-04 08:22:00]
     end
@@ -322,7 +335,9 @@ defmodule Back.AppTest do
       workingtime = workingtime_fixture()
       update_attrs = %{end: ~N[2021-11-04 10:02:00], start: ~N[2021-11-04 10:02:00]}
 
-      assert {:ok, %Workingtime{} = workingtime} = App.update_workingtime(workingtime, update_attrs)
+      assert {:ok, %Workingtime{} = workingtime} =
+               App.update_workingtime(workingtime, update_attrs)
+
       assert workingtime.end == ~N[2021-11-04 10:02:00]
       assert workingtime.start == ~N[2021-11-04 10:02:00]
     end

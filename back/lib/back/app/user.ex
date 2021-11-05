@@ -19,6 +19,7 @@ defmodule Back.App.User do
     user
     |> cast(attrs, [:email, :password, :role, :firstname, :lastname])
     |> validate_required([:email, :password, :role, :firstname, :lastname])
+    |> unique_constraint(:email)
     |> hash_password()
   end
 

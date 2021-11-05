@@ -18,6 +18,7 @@ defmodule BackWeb.Router do
     scope "/users" do
       pipe_through :auth
       get "/", UserController, :index
+      get "/self", UserController, :get_self
     end
   end
 end

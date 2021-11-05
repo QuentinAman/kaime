@@ -11,11 +11,19 @@ defmodule Back.AuthPlug do
   end
 
   def get_jwt(conn) do
-    conn
-    |> get_req_header("authorization")
-    |> List.first()
-    |> String.split()
-    |> List.last()
+    case get_req_header(conn, "authorization") do
+      [] ->
+        forbidden(conn, "non_connected")
+        halt(conn)
+
+      list ->
+        IO.inspect(list)
+
+        list
+        |> List.first()
+        |> String.split()
+        |> List.last()
+    end
   end
 
   def success(conn, %{"id" => id, "role" => role}) do

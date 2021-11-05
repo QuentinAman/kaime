@@ -14,6 +14,7 @@ defmodule Back.Repo.Migrations.CreateUsers do
       timestamps()
     end
 
+    create unique_index(:users, [:email])
     create index(:users, [:team])
     create index(:users, [:clock])
   end

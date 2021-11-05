@@ -13,7 +13,6 @@ defmodule BackWeb.UserView do
   def render("user.json", %{user: user}) do
     %{
       id: user.id,
-      username: user.username,
       email: user.email,
       role: user.role,
       firstname: user.firstname,
@@ -33,10 +32,9 @@ defmodule BackWeb.UserView do
       data: %{
         token: auth.token,
         user: %{
-          username: auth.user.username,
           firstname: auth.user.firstname,
           lastname: auth.user.lastname,
-          email: auth.user.username,
+          email: auth.user.email,
           role: auth.user.role
         }
       }

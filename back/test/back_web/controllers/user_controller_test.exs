@@ -10,18 +10,22 @@ defmodule BackWeb.UserControllerTest do
     firstname: "some firstname",
     lastname: "some lastname",
     password: "some password",
-    role: 42,
-    username: "some username"
+    role: 42
   }
   @update_attrs %{
     email: "some updated email",
     firstname: "some updated firstname",
     lastname: "some updated lastname",
     password: "some updated password",
-    role: 43,
-    username: "some updated username"
+    role: 43
   }
-  @invalid_attrs %{email: nil, firstname: nil, lastname: nil, password: nil, role: nil, username: nil}
+  @invalid_attrs %{
+    email: nil,
+    firstname: nil,
+    lastname: nil,
+    password: nil,
+    role: nil
+  }
 
   setup %{conn: conn} do
     {:ok, conn: put_req_header(conn, "accept", "application/json")}
@@ -47,8 +51,7 @@ defmodule BackWeb.UserControllerTest do
                "firstname" => "some firstname",
                "lastname" => "some lastname",
                "password" => "some password",
-               "role" => 42,
-               "username" => "some username"
+               "role" => 42
              } = json_response(conn, 200)["data"]
     end
 
@@ -73,8 +76,7 @@ defmodule BackWeb.UserControllerTest do
                "firstname" => "some updated firstname",
                "lastname" => "some updated lastname",
                "password" => "some updated password",
-               "role" => 43,
-               "username" => "some updated username"
+               "role" => 43
              } = json_response(conn, 200)["data"]
     end
 

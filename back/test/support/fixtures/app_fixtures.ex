@@ -15,8 +15,7 @@ defmodule Back.AppFixtures do
         firstname: "some firstname",
         lastname: "some lastname",
         password: "some password",
-        role: 42,
-        username: "some username"
+        role: 42
       })
       |> Back.App.create_user()
 
