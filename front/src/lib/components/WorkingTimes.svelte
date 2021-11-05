@@ -3,11 +3,7 @@
 	import WorkingTime from './WorkingTime.svelte';
 
 	/**
-	 * @type {{
-	 *  start: string
-	 *  end: string
-	 *  description: string
-	 * }[]}
+	 * @type {WorkingTime["$$prop_def"]["data"][]}
 	 */
 	export let workingTimes = [];
 
@@ -20,7 +16,7 @@
 			<li><Time hours={hour} /></li>
 		{/each}
 		{#each workingTimes as data}
-			<WorkingTime left="6ch" {data} />
+			<WorkingTime left="6ch" bind:data />
 		{/each}
 	</ul>
 </div>

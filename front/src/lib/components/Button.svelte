@@ -7,6 +7,7 @@
 <style>
 	button {
 		cursor: pointer;
+		width: 100%;
 		text-transform: uppercase;
 		background-color: rgb(var(--primary));
 		padding: 1em 2em;

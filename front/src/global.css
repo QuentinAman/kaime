@@ -21,3 +21,12 @@ ul,
 ol {
 	list-style: none;
 }
+
+*[contenteditable] {
+	outline: 0px solid rgba(var(--primary), 0.25);
+	transition: linear 50ms outline-width;
+}
+
+*[contenteditable]:focus {
+	outline-width: 2px;
+}
