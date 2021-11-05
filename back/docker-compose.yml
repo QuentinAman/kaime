@@ -1,0 +1,25 @@
+version: "3"
+
+services:
+    phoenix:
+        build:
+            context: .
+        env_file:
+            - .env
+        ports:
+            - "4000:4000"
+        depends_on:
+            - db
+    db:
+        ports:
+            - "5431:5432"
+        image: postgres:9.6
+        environment:
+            POSTGRES_USER: postgres
+            POSTGRES_PASSWORD: postgres
+            PGDATA: /var/lib/postgresql/data/pgdata
+        restart: always
+        volumes:
+            - pgdata:/var/lib/postgresql/data
+volumes:
+    pgdata:
