@@ -1,44 +1,38 @@
 <script>
-import Button from "$lib/components/Button.svelte";
+	import Button from '$lib/components/Button.svelte';
+	import Capitalize from '$lib/components/Capitalize.svelte';
+	import Email from '$lib/components/Email.svelte';
 
-  import Header from "$lib/components/Header.svelte";
-  import Input from "$lib/components/Input.svelte";
-
-  let firstname = "";
-  let lastname = "";
-  let email = "";
-
+	let firstname = '';
+	let lastname = '';
+	let email = '';
 </script>
 
 <main>
-  <form>
-    <Input bind:value={firstname} placeholder="Prénom"/>
-    <Input bind:value={lastname} placeholder="Nom"/>
-    <Input bind:value={email} placeholder="Email"/>
-    <Button>Changer de mot de passe</Button>
-  </form>
-  <footer>
-    <Button>Supprimer mon compte</Button>
-  </footer>
+	<form>
+		<Capitalize bind:value={firstname} placeholder="Prénom" />
+		<Capitalize bind:value={lastname} placeholder="Nom" />
+		<Email bind:value={email} />
+		<Button>Changer de mot de passe</Button>
+	</form>
+	<Button --width="max-content">Supprimer mon compte</Button>
 </main>
 
 <style>
+	form,
+	main {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+	}
 
-  main {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding: 5em 0em; 
-  }
+	main {
+		padding: 5em 0;
+	}
 
-  form {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    gap: 2em;
-  }
-
+	form {
+		gap: 1.5em;
+		margin-bottom: 1em;
+	}
 </style>
-

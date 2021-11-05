@@ -1,13 +1,14 @@
 <script>
 	export let reverted = false;
+	export let disabled = false;
 </script>
 
-<button class:reverted on:click><slot /></button>
+<button type="button" {disabled} class:reverted on:click {...$$restProps}><slot /></button>
 
-<style>
+<style lang="scss">
 	button {
 		cursor: pointer;
-		width: 100%;
+		width: var(--width, 100%);
 		text-transform: uppercase;
 		background-color: rgb(var(--primary));
 		padding: 1em 2em;
@@ -17,18 +18,23 @@
 		border: none;
 		border-radius: 2em;
 		transition-property: transform;
-	}
 
-	button.reverted {
-		background-color: white;
-		color: rgb(var(--primary));
-	}
+		&.reverted {
+			background-color: white;
+			color: rgb(var(--primary));
+		}
 
-	button:hover {
-		transform: scale(1.05);
-	}
+		&:hover {
+			transform: scale(1.05);
+		}
 
-	button:active {
-		transform: scale(0.95);
+		&:active {
+			transform: scale(0.95);
+		}
+
+		&:disabled {
+			pointer-events: none;
+			opacity: 0.5;
+		}
 	}
 </style>

@@ -3,20 +3,41 @@
 	import Logo from './Logo.svelte';
 	import Nav from './Nav.svelte';
 
+	export let path = '';
+
 	let open = false;
 </script>
 
 <header>
-	<Icon name="Logout" />
+	<Icon name="Logout" --width="4em" />
 	<p>Se déconnecter</p>
 	<div class="logo">
-		<Logo />
+		<Logo clickable />
 	</div>
-	<Icon name="Burger" on:click={() => (open = true)} />
+	<div class="burger">
+		<Icon name="Burger" click={() => (open = true)} --width="4em" />
+	</div>
 </header>
-<Nav bind:open />
+<Nav
+	bind:open
+	{path}
+	links={{
+		'/workingTimes': {
+			text: 'Mes Temps',
+			icon: 'Time'
+		},
+		'/graphics': {
+			text: 'Graphiques',
+			icon: 'Graphic'
+		},
+		'/account': {
+			text: 'Mon Compte',
+			icon: 'User'
+		}
+	}}
+/>
 
-<style>
+<style lang="scss">
 	p {
 		display: none;
 	}
@@ -31,23 +52,19 @@
 		font-size: 0.75em;
 	}
 
-	header > :global(svg) {
-		cursor: pointer;
-		width: 4em;
-	}
-
 	@media (min-width: 768px) {
 		header {
 			justify-content: flex-start;
+			padding: 1em 2.5em;
+
+			.burger {
+				margin-left: auto;
+			}
 		}
 
 		p {
 			display: initial;
 			margin-right: 5em;
-		}
-
-		header > :global(svg:last-of-type) {
-			margin-left: auto;
 		}
 	}
 </style>

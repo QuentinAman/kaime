@@ -3,16 +3,20 @@
 	import Icon from './Icon.svelte';
 
 	export let open = false;
-	export let location = '';
+	export let path = '';
+
+	/**
+	 * @type {Record<string, { icon: Link["$$prop_def"]["icon"], text: string }>}
+	 */
 	export let links = {};
 </script>
 
 <nav class:open>
-	<Icon name="Cross" on:click={() => (open = false)} />
+	<Icon name="Cross" click={() => (open = false)} />
 	<ul>
 		{#each Object.keys(links) as href}
 			<li>
-				<Link current={href === location} {href} icon={links[href].icon}>
+				<Link current={href === path} {href} icon={links[href].icon}>
 					{links[href].text}
 				</Link>
 			</li>
@@ -21,7 +25,7 @@
 	<p>Kaïme</p>
 </nav>
 
-<style>
+<style lang="scss">
 	nav {
 		position: fixed;
 		display: flex;
@@ -36,17 +40,17 @@
 		color: white;
 		transition-property: transform;
 		z-index: 99999;
-	}
 
-	nav.open {
-		transform: translateX(0);
-	}
+		&.open {
+			transform: translateX(0);
+		}
 
-	nav > :global(svg) {
-		cursor: pointer;
-		width: 1.5em;
-		margin: 1em;
-		color: white;
+		& > :global(svg) {
+			cursor: pointer;
+			width: 1.5em;
+			margin: 1em;
+			color: white;
+		}
 	}
 
 	ul {

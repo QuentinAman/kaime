@@ -1,1 +1,1 @@
-<h1>Kaïme</h1>
+<h1>Kaïme Accueil</h1>

@@ -52,6 +52,11 @@
 	export let name;
 	export let style = '';
 
+	/**
+	 * @type {svelte.JSX.DOMAttributes<SVGElement>["onclick"]}
+	 */
+	export let click = undefined;
+
 	const regex = /(stroke|fill)="[^"]+"/g;
 	const replacer = (attribute) => {
 		const [prop] = attribute.split('=');
@@ -59,13 +64,29 @@
 	};
 </script>
 
-<svg {style} viewBox={icons[name].viewBox} on:click on:mousedown|preventDefault>
+<svg {style} class:click viewBox={icons[name].viewBox} on:click={click} on:mousedown|preventDefault>
 	{@html icons[name].paths.replace(regex, replacer)}
 </svg>
 
-<style>
+<style lang="scss">
 	svg {
 		fill: none;
 		stroke: none;
+		width: var(--width, 100%);
+
+		transform: rotate(var(--rotate, 0deg)) scale(var(--scale, 1));
+		transition-property: transform;
+
+		&.click {
+			cursor: pointer;
+
+			&:hover {
+				--scale: 1.05;
+			}
+
+			&:active {
+				--scale: 0.95;
+			}
+		}
 	}
 </style>

@@ -87,17 +87,13 @@
 	{/if}
 </div>
 
-<style>
+<style lang="scss">
 	.timer {
 		position: absolute;
 		top: calc(100% + 2ch);
 		width: max-content;
 		font-size: 1.5em;
 		font-weight: 800;
-	}
-
-	.circle:not(.clickable) {
-		pointer-events: none;
 	}
 
 	p {
@@ -113,8 +109,8 @@
 		cursor: pointer;
 
 		border: 0.5em solid currentColor;
-		width: 6em;
-		height: 6em;
+		width: var(--size, 6em);
+		height: var(--size, 6em);
 		border-radius: 50%;
 
 		display: flex;
@@ -122,17 +118,21 @@
 		align-items: center;
 
 		transition-property: transform;
+
+		&:not(.clickable) {
+			pointer-events: none;
+		}
+
+		&:hover {
+			transform: scale(1.05);
+		}
+
+		&:active {
+			transform: scale(0.9) rotate(25deg);
+		}
 	}
 
-	.circle:hover {
-		transform: scale(1.05);
-	}
-
-	.circle:active {
-		transform: scale(0.9) rotate(25deg);
-	}
-
-	.circle .bar {
+	.bar {
 		position: absolute;
 
 		height: 0.35em;
@@ -143,45 +143,44 @@
 		top: 50%;
 		left: 50%;
 		transform: translateY(-50%) rotate(var(--rotate, 0deg));
-	}
 
-	.bar.hour {
-		width: 1em;
-	}
+		&.hour {
+			width: 1em;
+		}
 
-	.bar.minutes {
-		width: 2em;
-	}
+		&.minutes {
+			width: 2em;
+		}
 
-	.bar.seconds {
-		width: 2.25em;
-		height: 0.15em;
-		opacity: 0.25;
+		&.seconds {
+			width: 2.25em;
+			height: 0.15em;
+			opacity: 0.25;
+		}
 	}
 
 	.center,
 	.dot {
-		width: 0.7em;
-		height: 0.75em;
+		position: absolute;
 		background-color: currentColor;
 		border-radius: 50%;
 	}
 
 	.dot {
-		position: absolute;
 		bottom: calc(100% + 0.75em);
-	}
+		width: 0.7em;
+		height: 0.75em;
 
-	.dot.left {
-		transform: translateX(-75%);
-	}
+		&.left {
+			transform: translateX(-75%);
+		}
 
-	.dot.right {
-		transform: translateX(75%);
+		&.right {
+			transform: translateX(75%);
+		}
 	}
 
 	.center {
-		position: absolute;
 		width: 0.5em;
 		height: 0.5em;
 	}
