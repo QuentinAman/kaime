@@ -1,6 +1,10 @@
 <script>
 	import Icon from './Icon.svelte';
 	import { slide } from 'svelte/transition';
+	import { createEventDispatcher } from 'svelte';
+	import { createDelayer } from '$lib/functions';
+
+	const dispatch = createEventDispatcher();
 
 	export let placeholder = '';
 	export let value = '';
@@ -15,6 +19,12 @@
 	export let icon = null;
 	export let onIconClick = null;
 	let focus = false;
+
+	const { delay } = createDelayer(1000);
+
+	const update = () => {
+		delay(() => dispatch('update'));
+	};
 </script>
 
 <label class:empty={!value}>
@@ -26,6 +36,7 @@
 		bind:value
 		on:focus={() => (focus = true)}
 		on:blur={() => (focus = false)}
+		on:input={update}
 		{...$$restProps}
 	/>
 	{#if icon}
@@ -80,7 +91,10 @@
 		position: relative;
 		display: flex;
 		border: 1px solid rgb(var(--primary));
+		outline: 0px solid rgba(var(--primary), 0.15);
 		border-radius: 3em;
+
+		transition: linear 100ms outline-width;
 
 		& > :global(svg) {
 			margin: 1em;
@@ -91,6 +105,10 @@
 			p {
 				top: 0;
 			}
+		}
+
+		&:focus-within {
+			outline-width: 3px;
 		}
 	}
 

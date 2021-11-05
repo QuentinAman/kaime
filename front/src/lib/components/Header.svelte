@@ -1,4 +1,8 @@
 <script>
+	import { goto } from '$app/navigation';
+	import { session } from '$app/stores';
+	import { cookie } from '$lib/stores/cookie';
+
 	import Icon from './Icon.svelte';
 	import Logo from './Logo.svelte';
 	import Nav from './Nav.svelte';
@@ -6,10 +10,16 @@
 	export let path = '';
 
 	let open = false;
+
+	const logout = () => {
+		cookie.deleteItem('token');
+		$session.user = null;
+		goto('/login');
+	};
 </script>
 
 <header>
-	<Icon name="Logout" --width="4em" />
+	<Icon name="Logout" --width="4em" click={logout} />
 	<p>Se déconnecter</p>
 	<div class="logo">
 		<Logo clickable />

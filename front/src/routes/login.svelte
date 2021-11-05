@@ -1,21 +1,37 @@
 <script>
+	import { goto } from '$app/navigation';
+	import { session } from '$app/stores';
+
 	import Button from '$lib/components/Button.svelte';
 	import Email from '$lib/components/Email.svelte';
 	import Form from '$lib/components/Form.svelte';
 	import Logo from '$lib/components/Logo.svelte';
 	import Password from '$lib/components/Password.svelte';
+	import { cookie } from '$lib/stores/cookie';
+	import { API } from '$lib/utils';
 
 	let email = '';
 	let password = '';
+
+	const login = async () => {
+		const { token, user } = await API.post('/sign_in', {
+			email,
+			password
+		});
+
+		$cookie.token = token;
+		$session.user = user;
+		goto('/account');
+	};
 </script>
 
 <main>
-	<h1>Kaïme</h1>
+	<h1>{import.meta.env.VITE_APP}</h1>
 	<Logo />
-	<Form>
+	<Form submit={login} let:submitting>
 		<Email bind:value={email} autofocus />
 		<Password bind:value={password} autocomplete="new-password" />
-		<Button type="submit">Se connecter</Button>
+		<Button disabled={submitting} type="submit">Se connecter</Button>
 		<p>Vous n'avez pas de compte ?</p>
 		<a href="/register">Créer un compte</a>
 	</Form>

@@ -9,6 +9,9 @@
 		if (!session.user && !pages.includes(page.path)) {
 			output.status = 302;
 			output.redirect = '/login';
+		} else if (session.user && pages.includes(page.path)) {
+			output.status = 302;
+			output.redirect = '/account';
 		}
 
 		return output;

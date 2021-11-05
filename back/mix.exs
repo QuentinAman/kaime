@@ -50,7 +50,8 @@ defmodule Back.MixProject do
       {:jason, "~> 1.2"},
       {:plug_cowboy, "~> 2.5"},
       {:bcrypt_elixir, "~> 2.3"},
-      {:joken, "~> 2.4"}
+      {:joken, "~> 2.4"},
+      {:cors_plug, "~> 2.0"}
     ]
   end
 

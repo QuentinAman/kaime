@@ -6,4 +6,4 @@
 	export let autocomplete = 'new-password';
 </script>
 
-<Input bind:value type="password" {placeholder} {autocomplete} />
+<Input bind:value type="password" {placeholder} {autocomplete} on:update />

@@ -17,7 +17,7 @@
 		color: white;
 		border: none;
 		border-radius: 2em;
-		transition-property: transform;
+		transition-property: transform, color, opacity;
 
 		&.reverted {
 			background-color: white;

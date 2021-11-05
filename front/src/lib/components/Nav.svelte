@@ -22,7 +22,7 @@
 			</li>
 		{/each}
 	</ul>
-	<p>Kaïme</p>
+	<p>{import.meta.env.VITE_APP}</p>
 </nav>
 
 <style lang="scss">
