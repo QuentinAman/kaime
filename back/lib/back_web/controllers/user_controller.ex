@@ -7,10 +7,15 @@ defmodule BackWeb.UserController do
   action_fallback BackWeb.FallbackController
 
   def signup(conn, user) do
-    with {:ok, %User{} = createdUser} <- App.create_user(user) do
-      conn
-      |> put_status(:created)
-      |> render("show.json", user: createdUser)
+    case App.create_user(user) do
+      {:ok, %User{} = createdUser} ->
+        conn
+        |> put_status(:created)
+        |> render("show.json", user: createdUser)
+
+      {:error, message} ->
+        conn
+        |> render("error.json", message: message)
     end
   end
 

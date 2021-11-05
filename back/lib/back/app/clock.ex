@@ -4,7 +4,7 @@ defmodule Back.App.Clock do
 
   schema "clocks" do
     field :status, :boolean, default: false
-    field :time, :naive_datetime
+    field :time, :naive_datetime, default: nil
 
     timestamps()
   end
@@ -13,6 +13,6 @@ defmodule Back.App.Clock do
   def changeset(clock, attrs) do
     clock
     |> cast(attrs, [:time, :status])
-    |> validate_required([:time, :status])
+    |> validate_required([:status])
   end
 end

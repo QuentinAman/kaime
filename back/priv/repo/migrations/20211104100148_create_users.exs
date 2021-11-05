@@ -6,8 +6,8 @@ defmodule Back.Repo.Migrations.CreateUsers do
       add :email, :string
       add :password, :string
       add :role, :integer
-      add :firstname, :string
-      add :lastname, :string
+      add :firstname, :string, null: true
+      add :lastname, :string, null: true
       add :team, references(:teams, on_delete: :nothing)
       add :clock, references(:clocks, on_delete: :nothing)
 

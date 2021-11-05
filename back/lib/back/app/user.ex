@@ -15,12 +15,19 @@ defmodule Back.App.User do
   end
 
   @doc false
-  def changeset(user, attrs) do
+  def changeset(user, attrs, "create") do
     user
-    |> cast(attrs, [:email, :password, :role, :firstname, :lastname])
-    |> validate_required([:email, :password, :role, :firstname, :lastname])
+    |> cast(attrs, [:email, :password, :role, :firstname, :lastname, :clock])
+    |> validate_required([:email, :password, :role])
     |> unique_constraint(:email)
     |> hash_password()
+  end
+
+  def changeset(user, attrs, "update") do
+    user
+    |> cast(attrs, [:email, :password, :role, :firstname, :lastname, :clock])
+    |> validate_required([:email, :password, :role])
+    |> unique_constraint(:email)
   end
 
   @spec hash_password(Ecto.Changeset.t()) :: Ecto.Changeset.t()

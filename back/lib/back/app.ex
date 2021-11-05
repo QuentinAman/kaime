@@ -50,9 +50,34 @@ defmodule Back.App do
 
   """
   def create_user(attrs \\ %{}) do
-    %User{}
-    |> User.changeset(attrs)
-    |> Repo.insert()
+    %{"password" => password} = attrs
+
+    case check_password(password) do
+      {:ok, _} ->
+        case %User{}
+             |> User.changeset(attrs, "create")
+             |> Repo.insert() do
+          {:ok, user} ->
+            {:ok, %Back.App.Clock{} = clock} = create_clock()
+            update_user(user, %{clock: clock.id})
+            {:ok, user}
+
+          {:error, changeset} ->
+            errors = changeset.errors
+            {error, _} = errors[:email]
+            {:error, error}
+        end
+
+      {:error, message} ->
+        {:error, message}
+    end
+  end
+
+  def check_password(password) do
+    case password do
+      "" -> {:error, "empty_password"}
+      _ -> {:ok, password: password}
+    end
   end
 
   def login(email, password) do
@@ -95,7 +120,7 @@ defmodule Back.App do
   """
   def update_user(%User{} = user, attrs) do
     user
-    |> User.changeset(attrs)
+    |> User.changeset(attrs, "update")
     |> Repo.update()
   end
 
