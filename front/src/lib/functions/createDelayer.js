@@ -5,7 +5,7 @@ export const createDelayer = (ms = 1500) => {
 
 	const delay = (callback) => {
 		clear();
-		setTimeout(() => {
+		timeout = setTimeout(() => {
 			callback();
 			clear();
 		}, ms);

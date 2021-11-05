@@ -3,6 +3,7 @@ defmodule BackWeb.Router do
 
   pipeline :api do
     plug :accepts, ["json"]
+    plug CORSPlug
   end
 
   pipeline :auth do

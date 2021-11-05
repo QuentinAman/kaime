@@ -7,4 +7,4 @@
 	$: value = value.trim().toLowerCase().replace(/\s+/g, '');
 </script>
 
-<Input bind:value type="email" {placeholder} autocomplete="email" {...$$restProps} />
+<Input bind:value type="email" {placeholder} autocomplete="email" {...$$restProps} on:update />

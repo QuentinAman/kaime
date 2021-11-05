@@ -80,10 +80,10 @@
 	<div class="bar minutes" style="--rotate: {minute}deg" />
 	<div class="bar seconds" style="--rotate: {seconds}deg" />
 	{#if timerStartedAt}
-		<div transition:scale class="timer">{timer}</div>
+		<div transition:scale|local class="timer">{timer}</div>
 	{/if}
 	{#if !timerStartedAt && clickable}
-		<p transition:scale>Lancer le timer</p>
+		<p transition:scale|local>Lancer le timer</p>
 	{/if}
 </div>
 
