@@ -108,7 +108,7 @@
 		transform-origin: bottom;
 		transform: translate(-50%, -200%);
 
-		z-index: 10;
+		z-index: 666;
 	}
 
 	.content {
