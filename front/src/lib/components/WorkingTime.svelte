@@ -126,6 +126,7 @@
 		font-weight: 900;
 		width: max-content;
 		margin: 1em;
+		user-select: none;
 	}
 
 	.description {
