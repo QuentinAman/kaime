@@ -33,7 +33,6 @@
 		justify-content: center;
 		align-items: center;
 		gap: 1.5em;
-		height: 85vh;
 	}
 
 	h1 {

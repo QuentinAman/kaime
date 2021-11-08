@@ -30,10 +30,11 @@
 	import '../global.css';
 </script>
 
-<Snacks />
-<Modals />
 {#if !pages.includes($page.path)}
 	<Header path={$page.path} />
 {/if}
 <!-- <pre>{JSON.stringify($session, null, 2)}</pre> -->
 <slot />
+
+<Modals />
+<Snacks />

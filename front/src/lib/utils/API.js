@@ -1,3 +1,6 @@
+import { browser } from '$app/env';
+import { snacks } from '$lib/stores';
+
 const { VITE_HOST, VITE_PORT } = import.meta.env;
 
 /**
@@ -5,21 +8,21 @@ const { VITE_HOST, VITE_PORT } = import.meta.env;
  * @param {RequestInit} init
  */
 const request = async (endpoint, init = {}) => {
-	const { data, errors } = await fetch(
-		`http://${VITE_HOST}:${VITE_PORT}/api/${endpoint.replace(/^\/+/, '')}`,
-		{
-			method: init.method,
-			headers: API.headers,
-			body: JSON.stringify(init.body)
-		}
-	).then((res) => res.json());
+	const res = await fetch(`http://${VITE_HOST}:${VITE_PORT}/api/${endpoint.replace(/^\/+/, '')}`, {
+		method: init.method,
+		headers: API.headers,
+		body: JSON.stringify(init.body)
+	});
 
-	if (errors) {
-		console.log(errors);
-		throw errors;
+	const json = await res.json();
+
+	if (json.errors) {
+		throw json.errors;
 	}
 
-	return data;
+	if (browser) snacks.danger(json.message);
+
+	return json.data;
 };
 
 export class API {

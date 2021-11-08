@@ -8,7 +8,7 @@
 	export let current = false;
 </script>
 
-<a {href} class:current class:icon>
+<a {href} class:current class:icon on:click>
 	{#if icon}
 		<div>
 			<Icon name={icon} />
@@ -27,6 +27,7 @@
 		padding: 1em;
 		gap: 2em;
 		text-decoration: none;
+		text-align: end;
 		font-size: 1.5em;
 		font-weight: 700;
 
@@ -51,10 +52,17 @@
 		width: 1.25em;
 		height: 1.25em;
 		padding: 0.15em;
+		flex-shrink: 0;
 
 		& :global(svg) {
 			width: 100%;
 			height: 100%;
+		}
+	}
+
+	@media (min-width: 468px) {
+		a {
+			gap: 4em;
 		}
 	}
 </style>

@@ -15,14 +15,14 @@
 	let password = '';
 
 	const login = async () => {
-		const { token, user } = await API.post('/sign_in', {
+		const { token } = await API.post('/sign_in', {
 			email,
 			password
 		});
 
 		$cookie.token = token;
 		$session.user = await getSelf(token);
-		goto('/account');
+		goto('/workingTimes');
 	};
 </script>
 
