@@ -108,7 +108,7 @@
 		transform-origin: bottom;
 		transform: translate(-50%, -200%);
 
-		z-index: 10;
+		z-index: 666;
 	}
 
 	.content {
@@ -126,6 +126,7 @@
 		font-weight: 900;
 		width: max-content;
 		margin: 1em;
+		user-select: none;
 	}
 
 	.description {

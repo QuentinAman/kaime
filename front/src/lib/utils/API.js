@@ -16,11 +16,13 @@ const request = async (endpoint, init = {}) => {
 
 	const json = await res.json();
 
+	if (browser && (json.errors || json.message)) {
+		snacks.danger(json.message);
+	}
+
 	if (json.errors) {
 		throw json.errors;
 	}
-
-	if (browser) snacks.danger(json.message);
 
 	return json.data;
 };
