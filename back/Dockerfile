@@ -1,6 +1,6 @@
 FROM elixir:latest
 
-RUN apt-get update && apt-get install -y postgresql-client
+RUN apt-get update && apt-get install -y postgresql-client build-essential
 WORKDIR /app
 
 COPY . .
@@ -13,4 +13,4 @@ RUN mix deps.get
 
 RUN mix do compile
 
-CMD ["/app/entrypoint.sh"]
+CMD ["/app/entrypoint.sh"] 
