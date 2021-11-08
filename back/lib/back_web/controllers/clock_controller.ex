@@ -6,11 +6,6 @@ defmodule BackWeb.ClockController do
 
   action_fallback BackWeb.FallbackController
 
-  def index(conn, _params) do
-    clocks = App.list_clocks()
-    render(conn, "index.json", clocks: clocks)
-  end
-
   def create(conn, %{"clock" => clock_params}) do
     with {:ok, %Clock{} = clock} <- App.create_clock(clock_params) do
       conn
@@ -20,16 +15,39 @@ defmodule BackWeb.ClockController do
     end
   end
 
-  def show(conn, %{"id" => id}) do
-    clock = App.get_clock!(id)
+  def show(conn, _req) do
+    clock = App.get_clock!(conn.assigns[:id])
     render(conn, "show.json", clock: clock)
   end
 
-  def update(conn, %{"id" => id, "clock" => clock_params}) do
-    clock = App.get_clock!(id)
+  def update(conn, _req) do
+    clock = App.get_clock!(conn.assigns[:id])
 
-    with {:ok, %Clock{} = clock} <- App.update_clock(clock, clock_params) do
-      render(conn, "show.json", clock: clock)
+    {:ok, date} = DateTime.now("Etc/UTC")
+
+    case clock.status do
+      false ->
+        with {:ok, %Clock{} = clock} <-
+               App.update_clock(clock, %{"status" => true, "time" => date}) do
+          render(conn, "show.json", clock: clock)
+        end
+
+      true ->
+        with {:ok, %Clock{} = updated_clock} <-
+               App.update_clock(clock, %{"status" => false, "time" => nil}) do
+          IO.inspect(clock)
+
+          users_workingtime =
+            Map.put(
+              %{"start" => clock.time, "end" => date},
+              "user",
+              conn.assigns[:id]
+            )
+
+          with {:ok, %Back.App.Workingtime{}} <- App.create_workingtime(users_workingtime) do
+            render(conn, "show.json", clock: updated_clock)
+          end
+        end
     end
   end
 
