@@ -10,6 +10,14 @@ defmodule BackWeb.Router do
     plug Back.AuthPlug
   end
 
+  pipeline :admin do
+    plug Back.AdminPlug
+  end
+
+  pipeline :manager do
+    plug Back.ManagerPlug
+  end
+
   scope "/api", BackWeb do
     pipe_through :api
 
@@ -21,7 +29,6 @@ defmodule BackWeb.Router do
     scope "/self" do
       pipe_through :auth
       get "/", UserController, :get_self
-      # TODO
       patch "/", UserController, :update
       delete "/", UserController, :delete
 
@@ -40,7 +47,7 @@ defmodule BackWeb.Router do
     # TODO
     scope "/admin" do
       pipe_through :auth
-      # pipe_through :admin
+      pipe_through :admin
 
       delete "/user", UserController, :delete_user
       get "/", UserController, :index
@@ -50,7 +57,7 @@ defmodule BackWeb.Router do
     # TODO
     scope "/manager" do
       pipe_through :auth
-      # pipe_through :manager
+      pipe_through :manager
 
       get "/team", TeamController, :show
       post "/team", TeamController, :add_to_team

@@ -1,10 +1,10 @@
-defmodule Back.AdminPlug do
+defmodule Back.ManagerPlug do
   import Plug.Conn
 
   def init(opts), do: opts
 
   def call(conn, _opts) do
-    if conn.assigns[:role] == 2 do
+    if conn.assigns[:role] < 1 do
       success(conn)
     else
       forbidden(conn, "not_enough_rights")
