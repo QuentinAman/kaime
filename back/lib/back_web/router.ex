@@ -18,12 +18,12 @@ defmodule BackWeb.Router do
     post "/sign_in", UserController, :signin
 
     # USER ROUTES
-    scope "/users" do
+    scope "/self" do
       pipe_through :auth
-      get "/self", UserController, :get_self
+      get "/", UserController, :get_self
       # TODO
-      patch "/self", UserController, :update
-      delete "/self", UserController, :delete
+      patch "/", UserController, :update
+      delete "/", UserController, :delete
 
       # WORKINGTIME ROUTES
       get "/workingtimes", WorkingtimeController, :get_mines
