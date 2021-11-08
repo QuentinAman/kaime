@@ -17,6 +17,11 @@
 	transition: none 400ms cubic-bezier(0, 0.5, 0, 1);
 }
 
+*::selection {
+	background-color: rgb(var(--primary));
+	color: white;
+}
+
 ul,
 ol {
 	list-style: none;

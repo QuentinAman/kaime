@@ -9,14 +9,18 @@
 	 * @type {Record<string, { icon: Link["$$prop_def"]["icon"], text: string }>}
 	 */
 	export let links = {};
+
+	const close = () => {
+		open = false;
+	};
 </script>
 
 <nav class:open>
-	<Icon name="Cross" click={() => (open = false)} />
+	<Icon name="Cross" click={close} />
 	<ul>
 		{#each Object.keys(links) as href}
 			<li>
-				<Link current={href === path} {href} icon={links[href].icon}>
+				<Link current={href === path} {href} icon={links[href].icon} on:click={close}>
 					{links[href].text}
 				</Link>
 			</li>
@@ -39,7 +43,7 @@
 		transform: translateX(100%);
 		color: white;
 		transition-property: transform;
-		z-index: 99999;
+		z-index: 9999;
 
 		&.open {
 			transform: translateX(0);
@@ -64,7 +68,7 @@
 		text-align: center;
 	}
 
-	@media (min-width: 768px) {
+	@media (min-width: 468px) {
 		nav {
 			left: initial;
 		}

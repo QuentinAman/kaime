@@ -37,7 +37,7 @@ defmodule BackWeb.Router do
 
     scope "/manager" do
       pipe_through :auth
-      pipe_through :manager
+      # pipe_through :manager
 
       get "/team", TeamController, :show
     end

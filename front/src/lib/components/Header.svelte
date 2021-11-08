@@ -59,6 +59,7 @@
 		gap: 1em;
 		padding: 1em;
 		margin-top: 1em;
+		margin-bottom: 5em;
 		font-size: 0.75em;
 	}
 

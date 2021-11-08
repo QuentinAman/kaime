@@ -115,13 +115,16 @@
 	p {
 		position: absolute;
 		background-color: white;
-		padding: 0 0.5em;
+		padding: 0 0.25em;
 		top: 50%;
-		border-radius: 1em;
-		left: 1em;
+		left: 1.25em;
 		transform: translateY(-50%);
 		transition-property: top;
 		pointer-events: none;
+		white-space: nowrap;
+		overflow: hidden;
+		max-width: 85%;
+		text-overflow: ellipsis;
 	}
 
 	input {

@@ -1,20 +1,20 @@
 <script>
 	import Icon from './Icon.svelte';
 
-	export let date = 0;
+	export let value = 0;
 
 	const formatter = new Intl.DateTimeFormat('fr-FR', {
 		day: 'numeric',
 		year: 'numeric',
-		month: 'long'
+		month: 'short'
 	});
 
 	const add = (n) => {
-		const d = new Date(date);
-		date = d.setDate(d.getDate() + n);
+		const d = new Date(value);
+		value = d.setDate(d.getDate() + n);
 	};
 
-	$: text = formatter.format(new Date(date));
+	$: text = formatter.format(new Date(value));
 </script>
 
 <div>
@@ -32,11 +32,14 @@
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
+		gap: 4em;
+		font-size: 0.75em;
 	}
 
 	span {
 		font-weight: 900;
 		font-size: 2em;
+		text-align: center;
 	}
 
 	button {
@@ -44,13 +47,16 @@
 		border: none;
 		background-color: rgb(var(--primary));
 		color: white;
+		flex-shrink: 0;
+		font: inherit;
 
 		display: flex;
 		align-items: center;
 		justify-content: center;
 
-		width: 5em;
-		height: 5em;
+		width: 4em;
+		height: 4em;
+		padding: 1.5em;
 
 		border-radius: 50%;
 		transition-property: transform;
@@ -61,6 +67,12 @@
 
 		&:active {
 			transform: scale(0.95);
+		}
+	}
+
+	@media (min-width: 768px) {
+		div {
+			font-size: 1em;
 		}
 	}
 </style>
