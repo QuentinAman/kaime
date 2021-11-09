@@ -70,4 +70,20 @@ defmodule BackWeb.UserController do
       send_resp(conn, :no_content, "")
     end
   end
+
+  def delete_user(conn, %{"user_id" => user_id}) do
+    user = App.get_user!(user_id)
+
+    with {:ok, %User{}} <- App.delete_user(user) do
+      send_resp(conn, :no_content, "")
+    end
+  end
+
+  def update_role(conn, %{"user_id" => user_id, "role" => role}) do
+    user = App.get_user!(user_id)
+
+    with {:ok, %User{} = user} <- App.update_user(user, %{"role" => role}) do
+      render(conn, "show.json", user: user)
+    end
+  end
 end

@@ -46,17 +46,16 @@ defmodule BackWeb.Router do
     # ADMIN ROUTES
     # TODO
     scope "/admin" do
-      pipe_through :auth
       pipe_through :admin
 
       delete "/user", UserController, :delete_user
       get "/", UserController, :index
+      patch "/update_role", UserController, :update_role
     end
 
     # MANAGER ROUTES
     # TODO
     scope "/manager" do
-      pipe_through :auth
       pipe_through :manager
 
       get "/team", TeamController, :show
