@@ -33,10 +33,10 @@ defmodule BackWeb.Router do
       delete "/", UserController, :delete
 
       # WORKINGTIME ROUTES
-      get "/workingtimes", WorkingtimeController, :get_mines
-      post "/workingtime", WorkingtimeController, :create
-      delete "/workingtime/:id", WorkingtimeController, :delete
-      patch "/workingtime/:id", WorkingtimeController, :update
+      get "/workingtimess", WorkingtimeController, :get_mines
+      post "/workingtimes", WorkingtimeController, :create
+      delete "/workingtimes/:id", WorkingtimeController, :delete
+      patch "/workingtimes/:id", WorkingtimeController, :update
 
       # CLOCK ROUTES
       get "/clock", ClockController, :show
