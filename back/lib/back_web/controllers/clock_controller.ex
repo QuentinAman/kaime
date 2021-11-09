@@ -55,7 +55,8 @@ defmodule BackWeb.ClockController do
     clock = App.get_clock!(id)
 
     with {:ok, %Clock{}} <- App.delete_clock(clock) do
-      send_resp(conn, :no_content, "")
+      conn
+      |> Phoenix.Controller.render(BackWeb.WorkingtimeView, "message.json", message: "ok")
     end
   end
 end

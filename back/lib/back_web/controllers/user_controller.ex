@@ -71,7 +71,8 @@ defmodule BackWeb.UserController do
     user = App.get_user!(conn.assigns[:id])
 
     with {:ok, %User{}} <- App.delete_user(user) do
-      send_resp(conn, :no_content, "")
+      conn
+      |> Phoenix.Controller.render(BackWeb.WorkingtimeView, "message.json", message: "ok")
     end
   end
 
