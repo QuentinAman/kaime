@@ -33,7 +33,11 @@ defmodule BackWeb.ClockController do
 
       true ->
         with {:ok, %Clock{} = updated_clock} <-
-               App.update_clock(clock, %{"status" => false, "time" => nil}) do
+               App.update_clock(clock, %{
+                 "status" => false,
+                 "time" => nil,
+                 "description" => "Description..."
+               }) do
           users_workingtime =
             Map.put(
               %{"start" => clock.time, "end" => time},
