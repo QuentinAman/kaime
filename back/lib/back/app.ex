@@ -79,6 +79,10 @@ defmodule Back.App do
 
   alias Back.App.Workingtime
 
+  def get_workingtime(id) do
+    Repo.get!(Workingtime, id)
+  end
+
   def get_my_workingtimes(user_id) do
     query = from w in Workingtime, where: w.user == ^user_id
     Repo.all(query)
