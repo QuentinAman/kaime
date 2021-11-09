@@ -8,23 +8,31 @@ const { VITE_HOST, VITE_PORT } = import.meta.env;
  * @param {RequestInit} init
  */
 const request = async (endpoint, init = {}) => {
-	const res = await fetch(`http://${VITE_HOST}:${VITE_PORT}/api/${endpoint.replace(/^\/+/, '')}`, {
-		method: init.method,
-		headers: API.headers,
-		body: JSON.stringify(init.body)
-	});
+	try {
+		const res = await fetch(
+			`http://${VITE_HOST}:${VITE_PORT}/api/${endpoint.replace(/^\/+/, '')}`,
+			{
+				method: init.method,
+				headers: API.headers,
+				body: JSON.stringify(init.body)
+			}
+		);
 
-	const json = await res.json();
+		const json = await res.json();
 
-	if (browser && (json.errors || json.message)) {
-		snacks.danger(json.message);
+		if (browser && (json.errors || json.message)) {
+			throw new Error(json.message);
+		}
+
+		if (json.errors) {
+			throw new Error(json.errors);
+		}
+
+		return json.data;
+	} catch (error) {
+		snacks.danger(error.message);
+		throw error;
 	}
-
-	if (json.errors) {
-		throw json.errors;
-	}
-
-	return json.data;
 };
 
 export class API {
@@ -32,11 +40,19 @@ export class API {
 		'Content-Type': 'application/json'
 	};
 
+	static set token(value) {
+		this.headers.Authorization = `Bearer ${value}`;
+	}
+
+	static get token() {
+		return this.headers.Authorization;
+	}
+
 	/**
 	 * @param {string} endpoint
 	 */
 	static get(endpoint) {
-		return request(endpoint, { method: 'get' });
+		return request(endpoint, { method: 'GET' });
 	}
 
 	/**
@@ -44,7 +60,7 @@ export class API {
 	 * @param {*} body
 	 */
 	static post(endpoint, body) {
-		return request(endpoint, { method: 'post', body });
+		return request(endpoint, { method: 'POST', body });
 	}
 
 	/**
@@ -52,7 +68,7 @@ export class API {
 	 * @param {*} body
 	 */
 	static patch(endpoint, body) {
-		return request(endpoint, { method: 'patch', body });
+		return request(endpoint, { method: 'PATCH', body });
 	}
 
 	/**
@@ -60,7 +76,7 @@ export class API {
 	 * @param {*} body
 	 */
 	static put(endpoint, body) {
-		return request(endpoint, { method: 'put', body });
+		return request(endpoint, { method: 'PUT', body });
 	}
 
 	/**
@@ -68,6 +84,6 @@ export class API {
 	 * @param {*} body
 	 */
 	static delete(endpoint, body) {
-		return request(endpoint, { method: 'delete', body });
+		return request(endpoint, { method: 'DELETE', body });
 	}
 }
