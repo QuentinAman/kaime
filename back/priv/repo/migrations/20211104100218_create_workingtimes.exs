@@ -6,6 +6,7 @@ defmodule Back.Repo.Migrations.CreateWorkingtimes do
       add :start, :naive_datetime
       add :end, :naive_datetime
       add :user, references(:users, on_delete: :nothing)
+      add :description, :string, null: true
 
       timestamps()
     end

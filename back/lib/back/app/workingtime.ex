@@ -6,6 +6,7 @@ defmodule Back.App.Workingtime do
     field :end, :naive_datetime
     field :start, :naive_datetime
     field :user, :id
+    field :description, :string
 
     timestamps()
   end
@@ -13,7 +14,7 @@ defmodule Back.App.Workingtime do
   @doc false
   def changeset(workingtime, attrs) do
     workingtime
-    |> cast(attrs, [:start, :end, :user])
+    |> cast(attrs, [:start, :end, :user, :description])
     |> validate_required([:start, :end, :user])
   end
 end
