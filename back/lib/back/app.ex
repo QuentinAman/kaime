@@ -79,7 +79,7 @@ defmodule Back.App do
 
   alias Back.App.Workingtime
 
-  def get_workingtime(id) do
+  def get_workingtime!(id) do
     Repo.get!(Workingtime, id)
   end
 
