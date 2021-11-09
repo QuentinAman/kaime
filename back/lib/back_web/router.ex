@@ -33,7 +33,7 @@ defmodule BackWeb.Router do
       delete "/", UserController, :delete
 
       # WORKINGTIME ROUTES
-      get "/workingtimess", WorkingtimeController, :get_mines
+      get "/workingtimes", WorkingtimeController, :get_mines
       post "/workingtimes", WorkingtimeController, :create
       delete "/workingtimes/:id", WorkingtimeController, :delete
       patch "/workingtimes/:id", WorkingtimeController, :update
