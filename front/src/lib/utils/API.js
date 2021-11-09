@@ -1,7 +1,7 @@
 import { browser } from '$app/env';
 import { snacks } from '$lib/stores';
 
-const { VITE_HOST, VITE_PORT } = import.meta.env;
+const { VITE_HOST, VITE_PORT, PROD, VITE_PROTOCOL } = import.meta.env;
 
 /**
  * @param {string} endpoint
@@ -9,8 +9,10 @@ const { VITE_HOST, VITE_PORT } = import.meta.env;
  */
 const request = async (endpoint, init = {}) => {
 	try {
+		let host = browser ? location.hostname : VITE_HOST;
+
 		const res = await fetch(
-			`http://${VITE_HOST}:${VITE_PORT}/api/${endpoint.replace(/^\/+/, '')}`,
+			`${VITE_PROTOCOL}://${host}:${VITE_PORT}/api/${endpoint.replace(/^\/+/, '')}`,
 			{
 				method: init.method,
 				headers: API.headers,
@@ -20,12 +22,12 @@ const request = async (endpoint, init = {}) => {
 
 		const json = await res.json();
 
-		if (browser && (json.errors || json.message)) {
-			throw new Error(json.message);
+		if (json.message) {
+			snacks.normal(json.message);
 		}
 
 		if (json.errors) {
-			throw new Error(json.errors);
+			throw new Error(json.message);
 		}
 
 		return json.data;

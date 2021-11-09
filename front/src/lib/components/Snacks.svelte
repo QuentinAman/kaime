@@ -18,8 +18,8 @@
 	{#each $snacks as snack (snack._id)}
 		<li transition:slide>
 			<div>
-				<Icon --width="1.5em" --height="1.5em" name={names[snack.type]} />
-				<Icon --width="1.5em" name="Cross" click={() => snacks.remove(snack._id)} />
+				<Icon name={names[snack.type]} />
+				<Icon name="Cross" click={() => snacks.remove(snack._id)} />
 			</div>
 			<p>
 				{snack.message}
@@ -37,9 +37,10 @@
 
 		display: flex;
 		flex-direction: column-reverse;
-		padding: 2em;
+		padding: 1em;
 
 		width: 25em;
+		max-width: 100%;
 		z-index: 99999;
 	}
 
@@ -47,6 +48,11 @@
 		display: flex;
 		justify-content: space-between;
 		margin-bottom: 0.5em;
+
+		& > :global(*) {
+			width: 1.5em;
+			height: 1.5em;
+		}
 	}
 
 	p {
@@ -61,5 +67,11 @@
 		border-radius: 1em;
 		width: 100%;
 		margin-top: 1em;
+	}
+
+	@media (min-width: 468px) {
+		ul {
+			padding: 2em;
+		}
 	}
 </style>

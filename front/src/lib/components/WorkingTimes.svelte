@@ -35,7 +35,7 @@
 			right: 0;
 			height: 1em;
 			z-index: 99;
-			background: linear-gradient(var(--direction, to top), transparent, white);
+			background: linear-gradient(var(--direction, to top), #fff0, white);
 		}
 
 		&::before {

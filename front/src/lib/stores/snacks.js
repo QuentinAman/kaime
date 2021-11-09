@@ -1,3 +1,4 @@
+import { browser } from '$app/env';
 import { writable } from 'svelte/store';
 import * as uuid from 'uuid';
 
@@ -8,6 +9,7 @@ const makeSnacks = () => {
 	let ms = 6000;
 
 	const push = (message, type) => {
+		if (!browser) return;
 		const snack = { _id: uuid.v4(), message, type };
 		update((v) => [...v, snack]);
 
