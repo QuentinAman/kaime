@@ -6,9 +6,11 @@
 	import ChangePasswordModal from '$lib/modals/ChangePasswordModal.svelte';
 	import { modals } from '$lib/stores';
 	import { snacks } from '$lib/stores/snacks';
+	import { API } from '$lib/utils';
 
-	const update = async () => {
-		console.log('update user', user);
+	const update = (key) => async () => {
+		const payload = { [key]: user[key] };
+		await API.patch('/self', { user: payload });
 		snacks.success('Votre compte à été mis à jour');
 	};
 
@@ -17,8 +19,8 @@
 
 <main>
 	<h1>{user.email}</h1>
-	<Capitalize bind:value={user.firstname} placeholder="Prénom" on:update={update} />
-	<Capitalize bind:value={user.lastname} placeholder="Nom" on:update={update} />
+	<Capitalize bind:value={user.firstname} placeholder="Prénom" on:update={update('firstname')} />
+	<Capitalize bind:value={user.lastname} placeholder="Nom" on:update={update('lastname')} />
 	<br />
 	<Button --width="max-content" on:click={() => modals.open(ChangePasswordModal)}>
 		Changer de mot de passe

@@ -17,18 +17,18 @@
 	$: text = formatter.format(new Date(value));
 </script>
 
-<div>
-	<button on:click={() => add(-1)}>
-		<Icon name="Arrow" --width="1.5em" --rotate="180deg" />
-	</button>
+<div class="container">
+	<div class="btn" on:click={() => add(-1)}>
+		<Icon name="Arrow" />
+	</div>
 	<span>{text}</span>
-	<button on:click={() => add(1)}>
-		<Icon name="Arrow" --width="1.5em" />
-	</button>
+	<div class="btn" on:click={() => add(1)}>
+		<Icon name="Arrow" />
+	</div>
 </div>
 
 <style lang="scss">
-	div {
+	.container {
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
@@ -42,7 +42,7 @@
 		text-align: center;
 	}
 
-	button {
+	.btn {
 		cursor: pointer;
 		border: none;
 		background-color: rgb(var(--primary));
@@ -60,6 +60,10 @@
 
 		border-radius: 50%;
 		transition-property: transform;
+
+		&:first-child > :global(*) {
+			--rotate: 180deg;
+		}
 
 		&:hover {
 			transform: scale(1.05);
