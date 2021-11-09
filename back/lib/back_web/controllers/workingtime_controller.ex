@@ -27,10 +27,13 @@ defmodule BackWeb.WorkingtimeController do
     if(workingtime.user == conn.assigns[:id]) do
       with {:ok, %Workingtime{} = workingtime} <-
              App.update_workingtime(workingtime, workingtime_params) do
-        send_resp(conn, :no_content, "")
+        conn
+        |> Phoenix.Controller.render(BackWeb.WorkingtimeView, "message.json",
+          message: "Mis à jour avec succès."
+        )
       end
     else
-      render("error.json", message: "not_yours")
+      render("error.json", message: "Ne vous appartiens pas.")
     end
   end
 
@@ -40,10 +43,12 @@ defmodule BackWeb.WorkingtimeController do
     if(workingtime.user == conn.assigns[:id]) do
       with {:ok, %Workingtime{}} <- App.delete_workingtime(workingtime) do
         conn
-        |> Phoenix.Controller.render(BackWeb.WorkingtimeView, "message.json", message: "ok")
+        |> Phoenix.Controller.render(BackWeb.WorkingtimeView, "message.json",
+          message: "Supprimé avec succès."
+        )
       end
     else
-      render("message.json", message: "not_yours")
+      render("message.json", message: "Ne vous appartiens pas.")
     end
   end
 end

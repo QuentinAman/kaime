@@ -57,7 +57,7 @@ defmodule BackWeb.UserController do
 
   def update(conn, %{"user" => user_params}) do
     if(Map.has_key?(user_params, "role") || Map.has_key?(user_params, "email")) do
-      render(conn, "error.json", message: "cannot_change_that")
+      render(conn, "error.json", message: "Ces champs ne peuvent pas être modifé")
     else
       user = App.get_user!(conn.assigns[:id])
 
@@ -72,7 +72,9 @@ defmodule BackWeb.UserController do
 
     with {:ok, %User{}} <- App.delete_user(user) do
       conn
-      |> Phoenix.Controller.render(BackWeb.WorkingtimeView, "message.json", message: "ok")
+      |> Phoenix.Controller.render(BackWeb.WorkingtimeView, "message.json",
+        message: "Supprimé avec succès."
+      )
     end
   end
 
@@ -80,7 +82,10 @@ defmodule BackWeb.UserController do
     user = App.get_user!(user_id)
 
     with {:ok, %User{}} <- App.delete_user(user) do
-      send_resp(conn, :no_content, "")
+      conn
+      |> Phoenix.Controller.render(BackWeb.WorkingtimeView, "message.json",
+        message: "Supprimé avec succès."
+      )
     end
   end
 

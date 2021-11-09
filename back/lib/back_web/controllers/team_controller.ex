@@ -38,7 +38,9 @@ defmodule BackWeb.TeamController do
 
     with {:ok, %Team{}} <- App.delete_team(team) do
       conn
-      |> Phoenix.Controller.render(BackWeb.WorkingtimeView, "message.json", message: "ok")
+      |> Phoenix.Controller.render(BackWeb.WorkingtimeView, "message.json",
+        message: "Supprimé avec succès"
+      )
     end
   end
 end
