@@ -24,4 +24,10 @@ defmodule BackWeb.WorkingtimeView do
       message: message
     }
   end
+
+  def render("success.json", %{message: message}) do
+    %{
+      message: message
+    }
+  end
 end

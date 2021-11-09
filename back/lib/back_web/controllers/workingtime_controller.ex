@@ -39,7 +39,7 @@ defmodule BackWeb.WorkingtimeController do
 
     if(workingtime.user == conn.assigns[:id]) do
       with {:ok, %Workingtime{}} <- App.delete_workingtime(workingtime) do
-        send_resp(conn, :no_content, "")
+        render("success.json", message: "ok")
       end
     else
       render("error.json", message: "not_yours")
