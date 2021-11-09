@@ -55,7 +55,7 @@ defmodule BackWeb.UserController do
     render(conn, "show.json", user: user)
   end
 
-  def update(conn, %{"id" => id, "user" => user_params}) do
+  def update(conn, %{"user" => user_params}) do
     user = App.get_user!(conn.assigns[:id])
 
     with {:ok, %User{} = user} <- App.update_user(user, user_params) do
@@ -63,7 +63,7 @@ defmodule BackWeb.UserController do
     end
   end
 
-  def delete(conn, %{"id" => id}) do
+  def delete(conn, _req) do
     user = App.get_user!(conn.assigns[:id])
 
     with {:ok, %User{}} <- App.delete_user(user) do
