@@ -4,7 +4,7 @@ defmodule Back.App.Clock do
 
   schema "clocks" do
     field :status, :boolean, default: false
-    field :time, :naive_datetime, default: nil
+    field :time, :string, default: nil
 
     timestamps()
   end
