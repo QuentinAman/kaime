@@ -20,26 +20,23 @@ defmodule BackWeb.ClockController do
     render(conn, "show.json", clock: clock)
   end
 
-  def update(conn, _req) do
-    clock = App.get_clock!(conn.assigns[:id])
-
-    {:ok, date} = DateTime.now("Etc/UTC")
+  def update(conn, %{"time" => time}) do
+    user = App.get_user!(conn.assigns[:id])
+    clock = App.get_clock!(user.clock)
 
     case clock.status do
       false ->
         with {:ok, %Clock{} = clock} <-
-               App.update_clock(clock, %{"status" => true, "time" => date}) do
+               App.update_clock(clock, %{"status" => true, "time" => time}) do
           render(conn, "show.json", clock: clock)
         end
 
       true ->
         with {:ok, %Clock{} = updated_clock} <-
                App.update_clock(clock, %{"status" => false, "time" => nil}) do
-          IO.inspect(clock)
-
           users_workingtime =
             Map.put(
-              %{"start" => clock.time, "end" => date},
+              %{"start" => clock.time, "end" => time},
               "user",
               conn.assigns[:id]
             )

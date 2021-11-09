@@ -56,10 +56,14 @@ defmodule BackWeb.UserController do
   end
 
   def update(conn, %{"user" => user_params}) do
-    user = App.get_user!(conn.assigns[:id])
+    if(Map.has_key?(user_params, "role") || Map.has_key?(user_params, "email")) do
+      render(conn, "error.json", message: "cannot_change_that")
+    else
+      user = App.get_user!(conn.assigns[:id])
 
-    with {:ok, %User{} = user} <- App.update_user(user, user_params) do
-      render(conn, "show.json", user: user)
+      with {:ok, %User{} = user} <- App.update_user(user, user_params) do
+        render(conn, "show.json", user: user)
+      end
     end
   end
 

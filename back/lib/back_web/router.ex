@@ -44,7 +44,6 @@ defmodule BackWeb.Router do
     end
 
     # ADMIN ROUTES
-    # TODO
     scope "/admin" do
       pipe_through :admin
 
@@ -59,8 +58,8 @@ defmodule BackWeb.Router do
       pipe_through :manager
 
       get "/team", TeamController, :show
-      post "/team", TeamController, :add_to_team
-      patch "/team", TeamController, :remove_from_team
+      post "/team", UserController, :add_to_team
+      patch "/team", UserController, :remove_from_team
     end
   end
 end
