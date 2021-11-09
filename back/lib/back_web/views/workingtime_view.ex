@@ -15,7 +15,7 @@ defmodule BackWeb.WorkingtimeView do
       id: workingtime.id,
       start: workingtime.start,
       end: workingtime.end,
-      description; workingtime.description
+      description: workingtime.description
     }
   end
 
