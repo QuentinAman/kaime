@@ -1,6 +1,5 @@
 <script>
 	// @ts-nocheck
-
 	import { scale } from 'svelte/transition';
 	import { createEventDispatcher, onDestroy } from 'svelte';
 
@@ -70,7 +69,13 @@
 	class:clickable
 	on:click={() => {
 		now = new Date();
-		timerStartedAt = timerStartedAt ? dispatch('finish', new Date()) : now.toISOString();
+		if (timerStartedAt) {
+			timerStartedAt = null;
+			dispatch('finish', new Date().toISOString());
+		} else {
+			timerStartedAt = now.toISOString();
+			dispatch('start', timerStartedAt);
+		}
 	}}
 >
 	<div class="dot left" />

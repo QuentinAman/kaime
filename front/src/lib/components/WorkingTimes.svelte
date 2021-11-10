@@ -1,13 +1,22 @@
 <script>
+	import { API } from '$lib/utils';
+	import { session } from '$app/stores';
+
 	import Time from './Time.svelte';
 	import WorkingTime from './WorkingTime.svelte';
+	import { snacks } from '$lib/stores';
 
 	/**
 	 * @type {WorkingTime["$$prop_def"]["data"][]}
 	 */
 	export let workingTimes = [];
+	export let date;
 
 	const hours = Array(25).fill();
+
+	const getWorkingTimes = async () => {
+		$session.user.workingTimes = await API.get('/self/workingtimes');
+	};
 </script>
 
 <div>
@@ -15,9 +24,22 @@
 		{#each hours as _, hour}
 			<li><Time hours={hour} /></li>
 		{/each}
-		{#each workingTimes as data}
-			<WorkingTime left="6ch" bind:data />
-		{/each}
+		{#key date}
+			{#each workingTimes as data (data.id)}
+				<WorkingTime
+					left="6ch"
+					date={new Date(date)}
+					bind:data
+					on:update={async () => {
+						await API.patch(`/self/workingtimes/${data.id}`, { workingtime: data }, false);
+					}}
+					on:delete={async () => {
+						await API.delete(`/self/workingtimes/${data.id}`);
+						await getWorkingTimes();
+					}}
+				/>
+			{/each}
+		{/key}
 	</ul>
 </div>
 
