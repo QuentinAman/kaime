@@ -1,15 +1,17 @@
 version: "3"
 
 services:
-    phoenix:
+    back:
         build:
-            context: .
+            context: ./back/
         env_file:
-            - .env
+            - ./back/.env
         ports:
             - "4000:4000"
         depends_on:
             - db
+        networks:
+            - private
     db:
         image: postgres:9.6
         environment:
@@ -17,9 +19,21 @@ services:
             POSTGRES_PASSWORD: postgres
             PGDATA: /var/lib/postgresql/data/pgdata
         ports:
-            - "4321:5432"
+            - "5432:5432"
         restart: always
         volumes:
             - pgdata:/var/lib/postgresql/data
+        networks:
+            - private
+    front:
+        networks:
+            - private
+        build:
+            context: ./front/
+        ports:
+            - "3000:3000"
 volumes:
     pgdata:
+
+networks:
+    private:

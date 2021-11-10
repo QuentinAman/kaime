@@ -26,6 +26,12 @@ defmodule BackWeb.UserView do
     }
   end
 
+  def render("error.json", %{message: message}) do
+    %{
+      message: message
+    }
+  end
+
   def render("auth.json", %{auth: auth}) do
     %{
       message: "connected",
