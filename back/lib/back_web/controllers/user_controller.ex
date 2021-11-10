@@ -15,7 +15,7 @@ defmodule BackWeb.UserController do
 
       {:error, message} ->
         conn
-        |> render("error.json", message: message)
+        |> render("message.json", message: message)
     end
   end
 
@@ -27,7 +27,7 @@ defmodule BackWeb.UserController do
 
       {:error, message} ->
         conn
-        |> render("error.json", message: message)
+        |> render("message.json", message: message)
     end
   end
 
@@ -57,13 +57,21 @@ defmodule BackWeb.UserController do
 
   def update(conn, %{"user" => user_params}) do
     if(Map.has_key?(user_params, "role") || Map.has_key?(user_params, "email")) do
-      render(conn, "error.json", message: "Ces champs ne peuvent pas être modifé")
+      render(conn, "message.json", message: "Ces champs ne peuvent pas être modifé")
     else
       user = App.get_user!(conn.assigns[:id])
 
       with {:ok, %User{} = user} <- App.update_user(user, user_params) do
         render(conn, "show.json", user: user)
       end
+    end
+  end
+
+  def update_password(conn, %{"password" => password}) do
+    user = App.get_user!(conn.assigns[:id])
+
+    with {:ok, %User{}} <- App.update_password(user, %{"password" => password}) do
+      render(conn, "message.json", message: "Mot de passe modifié avec succès.")
     end
   end
 

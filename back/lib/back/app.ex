@@ -73,8 +73,28 @@ defmodule Back.App do
     |> Repo.update()
   end
 
+  def update_password(%User{} = user, attrs) do
+    user
+    |> User.changeset(attrs, "password")
+    |> Repo.update()
+  end
+
   def delete_user(%User{} = user) do
+    wt_query = from(w in Back.App.Workingtime, where: w.user == ^user.id)
+
+    Ecto.Multi.new()
+    |> Ecto.Multi.delete_all(:delete_all, wt_query)
+    |> Back.Repo.transaction()
+
     Repo.delete(user)
+
+    c_query = from(c in Back.App.Clock, where: c.id == ^user.clock)
+
+    clock = Repo.one(c_query)
+
+    Repo.delete(clock)
+
+    {:ok, user}
   end
 
   alias Back.App.Workingtime

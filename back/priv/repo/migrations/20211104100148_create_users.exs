@@ -9,7 +9,7 @@ defmodule Back.Repo.Migrations.CreateUsers do
       add :firstname, :string, null: true
       add :lastname, :string, null: true
       add :team, references(:teams, on_delete: :nothing)
-      add :clock, references(:clocks, on_delete: :nothing)
+      add :clock, references(:clocks, on_delete: :delete_all)
 
       timestamps()
     end

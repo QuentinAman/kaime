@@ -31,6 +31,7 @@ defmodule BackWeb.Router do
       get "/", UserController, :get_self
       patch "/", UserController, :update
       delete "/", UserController, :delete
+      patch "/password", UserController, :update_password
 
       # WORKINGTIME ROUTES
       get "/workingtimes", WorkingtimeController, :get_mines

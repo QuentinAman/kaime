@@ -23,6 +23,13 @@ defmodule Back.App.User do
     |> hash_password()
   end
 
+  def changeset(user, attrs, "password") do
+    user
+    |> cast(attrs, [:password])
+    |> validate_required([:password])
+    |> hash_password()
+  end
+
   def changeset(user, attrs, "update") do
     user
     |> cast(attrs, [:email, :password, :role, :firstname, :lastname, :clock])

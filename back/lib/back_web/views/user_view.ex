@@ -20,7 +20,7 @@ defmodule BackWeb.UserView do
     }
   end
 
-  def render("error.json", %{message: message}) do
+  def render("message.json", %{message: message}) do
     %{
       message: message
     }
