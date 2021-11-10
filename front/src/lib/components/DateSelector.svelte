@@ -32,7 +32,7 @@
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
-		gap: 4em;
+		gap: 3em;
 		font-size: 0.75em;
 	}
 

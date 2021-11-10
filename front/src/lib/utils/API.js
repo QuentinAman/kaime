@@ -7,7 +7,7 @@ const { VITE_HOST, VITE_PORT, PROD, VITE_PROTOCOL } = import.meta.env;
  * @param {string} endpoint
  * @param {RequestInit} init
  */
-const request = async (endpoint, init = {}) => {
+const request = async (endpoint, init = {}, notify = true) => {
 	try {
 		let host = browser ? location.hostname : VITE_HOST;
 
@@ -22,7 +22,7 @@ const request = async (endpoint, init = {}) => {
 
 		const json = await res.json();
 
-		if (json.message) {
+		if (json.message && notify) {
 			snacks.normal(json.message);
 		}
 
@@ -53,39 +53,39 @@ export class API {
 	/**
 	 * @param {string} endpoint
 	 */
-	static get(endpoint) {
-		return request(endpoint, { method: 'GET' });
+	static get(endpoint, notify) {
+		return request(endpoint, { method: 'GET' }, notify);
 	}
 
 	/**
 	 * @param {string} endpoint
 	 * @param {*} body
 	 */
-	static post(endpoint, body) {
-		return request(endpoint, { method: 'POST', body });
+	static post(endpoint, body, notify) {
+		return request(endpoint, { method: 'POST', body }, notify);
 	}
 
 	/**
 	 * @param {string} endpoint
 	 * @param {*} body
 	 */
-	static patch(endpoint, body) {
-		return request(endpoint, { method: 'PATCH', body });
+	static patch(endpoint, body, notify) {
+		return request(endpoint, { method: 'PATCH', body }, notify);
 	}
 
 	/**
 	 * @param {string} endpoint
 	 * @param {*} body
 	 */
-	static put(endpoint, body) {
-		return request(endpoint, { method: 'PUT', body });
+	static put(endpoint, body, notify) {
+		return request(endpoint, { method: 'PUT', body }, notify);
 	}
 
 	/**
 	 * @param {string} endpoint
 	 * @param {*} body
 	 */
-	static delete(endpoint, body) {
-		return request(endpoint, { method: 'DELETE', body });
+	static delete(endpoint, body, notify) {
+		return request(endpoint, { method: 'DELETE', body }, notify);
 	}
 }

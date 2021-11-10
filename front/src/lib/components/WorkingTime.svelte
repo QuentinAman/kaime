@@ -17,10 +17,16 @@
 	import { scale } from 'svelte/transition';
 	import { expoOut } from 'svelte/easing';
 	import { spring } from 'svelte/motion';
-	import { drag } from '../actions';
+	import { drag, outside, contextmenu } from '../actions';
+	import Icon from './Icon.svelte';
+	import { createEventDispatcher, onDestroy } from 'svelte';
+	import { createDelayer } from '$lib/functions';
+
+	const dispatch = createEventDispatcher();
 
 	/**
 	 * @type {{
+	 * 	id: any
 	 *  start: string
 	 *  end: string
 	 *  description: string
@@ -34,6 +40,9 @@
 	const end = date.setDate(date.getDate() + 1);
 
 	const max = end - start;
+	const { delay, clear } = createDelayer(1000);
+
+	let menu = null;
 
 	/**
 	 * @param {number} y
@@ -43,7 +52,13 @@
 		const rect = container.parentElement.getBoundingClientRect();
 		const percent = (y - rect.y) / rect.height;
 
+		// update();
+
 		data[prop] = toString(new Date(max * percent + start));
+	};
+
+	const update = () => {
+		delay(() => dispatch('update'));
 	};
 
 	/** @type {HTMLElement} */
@@ -53,14 +68,41 @@
 
 	$: top = (Date.parse(data.start) - start) / max;
 	$: bottom = (end - Date.parse(data.end)) / max;
+
+	onDestroy(clear);
 </script>
 
+{#if menu}
+	<ul
+		transition:scale={{ easing: expoOut }}
+		use:outside={() => (menu = null)}
+		class="menu"
+		style="left: {menu.x}px; top: {menu.y}px;"
+	>
+		<li on:mousedown={() => dispatch('delete')}><Icon name="Cross" /> Supprimer</li>
+	</ul>
+{/if}
+
 <div
+	transition:scale
 	bind:this={container}
+	use:contextmenu={(e) => {
+		e.preventDefault();
+		menu = {
+			x: e.clientX,
+			y: e.clientY
+		};
+	}}
 	class="container"
 	style="top: {top * 100}%; bottom: {bottom * 100}%; left: {left};"
 >
-	<div class="handle top" use:drag={(e) => diffProp(e.y, 'start')} />
+	<div
+		class="handle top"
+		use:drag={(e) => {
+			diffProp(e.y, 'start');
+			return () => dispatch('update');
+		}}
+	/>
 	<div
 		class="content"
 		use:drag={(e) => {
@@ -69,11 +111,14 @@
 			dragging = true;
 			$pos = { x: e.x, y: e.y };
 
-			return () => (dragging = false);
+			return () => {
+				dispatch('update');
+				dragging = false;
+			};
 		}}
 	>
 		<p class="time">{data.start.match(/\d{2}:\d{2}/)}</p>
-		<p class="description" contenteditable bind:textContent={data.description} />
+		<p class="description" contenteditable bind:textContent={data.description} on:input={update} />
 	</div>
 	<div
 		class="handle bottom"
@@ -81,7 +126,10 @@
 			diffProp(e.y, 'end');
 			dragging = true;
 			$pos = { x: e.x, y: e.y };
-			return () => (dragging = false);
+			return () => {
+				dragging = false;
+				dispatch('update');
+			};
 		}}
 	/>
 </div>
@@ -96,6 +144,39 @@
 {/if}
 
 <style lang="scss">
+	.menu {
+		position: fixed;
+		background-color: white;
+		border-radius: 1em;
+		overflow: hidden;
+		box-shadow: 0 0 0.25em rgba(var(--primary), 0.15);
+		transform-origin: top left;
+
+		z-index: 9999;
+
+		li {
+			cursor: pointer;
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			gap: 2em;
+			padding: 1em;
+			text-transform: uppercase;
+			font-weight: 700;
+
+			transition-property: background-color;
+
+			:global(svg) {
+				width: 1.5em;
+				height: 1.5em;
+			}
+
+			&:hover {
+				background-color: rgba(var(--primary), 0.15);
+			}
+		}
+	}
+
 	.endTime {
 		position: fixed;
 

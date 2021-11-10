@@ -36,12 +36,14 @@ export const drag = (node, callback) => {
 	const up = () => {
 		if (end) end();
 		clicked = false;
+		end = undefined;
 	};
 
 	/**
 	 * @param {TouchEvent} e
 	 */
 	const touchStart = (e) => {
+		if (e.target !== e.currentTarget) return;
 		setOffsetY(e.targetTouches[0].clientY - node.getBoundingClientRect().y);
 	};
 
@@ -49,14 +51,15 @@ export const drag = (node, callback) => {
 	 * @param {MouseEvent} e
 	 */
 	const mousedown = (e) => {
+		if (e.target !== e.currentTarget) return;
 		setOffsetY(e.offsetY);
 		clicked = true;
 	};
 
-	node.addEventListener('touchmove', touchMove);
-	node.addEventListener('touchstart', touchStart);
+	node.addEventListener('touchmove', touchMove, { passive: false });
+	node.addEventListener('touchstart', touchStart, { passive: false });
 	node.addEventListener('mousedown', mousedown);
-	addEventListener('touchend', up);
+	addEventListener('touchend', up, { passive: false });
 	addEventListener('mouseup', up);
 	addEventListener('mousemove', mouseMove);
 

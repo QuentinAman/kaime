@@ -22,19 +22,20 @@
 </script>
 
 <script>
+	import '../global.css';
+
 	import { page, session } from '$app/stores';
 	import Header from '$lib/components/Header.svelte';
 	import Modals from '$lib/components/Modals.svelte';
 	import Snacks from '$lib/components/Snacks.svelte';
 
-	import '../global.css';
 	import { cookie } from '$lib/stores';
 	import { API } from '$lib/utils';
 
 	$: if ($cookie.token) API.token = $cookie.token;
 </script>
 
-{#if !pages.includes($page.path)}
+{#if $session.user && !pages.includes($page.path)}
 	<Header path={$page.path} />
 {/if}
 <slot />

@@ -6,10 +6,10 @@ const makeSnacks = () => {
 	const { subscribe, update } = writable([]);
 
 	let interval;
-	let ms = 6000;
+	let ms = 3000;
 
 	const push = (message, type) => {
-		if (!browser) return;
+		if (!browser) return console.log({ message, type });
 		const snack = { _id: uuid.v4(), message, type };
 		update((v) => [...v, snack]);
 
