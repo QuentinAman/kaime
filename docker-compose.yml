@@ -12,6 +12,7 @@ services:
             - db
         networks:
             - private
+        command: bash -c "mix local.hex --force && mix local.rebar --force && mix deps.get && mix do compile && /app/entrypoint.sh"
     db:
         image: postgres:9.6
         environment:
@@ -25,13 +26,18 @@ services:
             - pgdata:/var/lib/postgresql/data
         networks:
             - private
+        volumes:
+            - ./back:/app
     front:
-        networks:
-            - private
         build:
             context: ./front/
         ports:
             - "3000:3000"
+        volumes:
+            - ./front:/app
+        networks:
+            - private
+        command: bash -c "yarn && yarn dev --host"
 volumes:
     pgdata:
 
