@@ -13,6 +13,24 @@
 	let open = false;
 	let submitting = false;
 
+	/**
+	 * @type {Nav["$$prop_def"]["links"]}
+	 */
+	let links = {
+		'/workingTimes': {
+			text: 'Mes Temps',
+			icon: 'Time'
+		},
+		'/graphics': {
+			text: 'Graphiques',
+			icon: 'Graphic'
+		},
+		'/account': {
+			text: 'Mon Compte',
+			icon: 'User'
+		}
+	};
+
 	const logout = () => {
 		cookie.deleteItem('token');
 		$session.user = null;
@@ -38,6 +56,20 @@
 		$session.user.clock = await API.patch('/self/clock', { time: e.detail });
 		$session.user.workingTimes = await API.get('/self/workingtimes');
 	});
+
+	$: if ($session?.user.role === 1) {
+		links['/teams/mine'] = {
+			text: 'Mon Équipe',
+			icon: 'Team'
+		};
+	}
+
+	$: if ($session?.user.role === 2) {
+		links['/teams'] = {
+			text: 'Les Équipes',
+			icon: 'Team'
+		};
+	}
 </script>
 
 <header>
@@ -55,24 +87,7 @@
 		<Icon name="Burger" click={() => (open = true)} />
 	</div>
 </header>
-<Nav
-	bind:open
-	{path}
-	links={{
-		'/workingTimes': {
-			text: 'Mes Temps',
-			icon: 'Time'
-		},
-		'/graphics': {
-			text: 'Graphiques',
-			icon: 'Graphic'
-		},
-		'/account': {
-			text: 'Mon Compte',
-			icon: 'User'
-		}
-	}}
-/>
+<Nav bind:open {path} {links} />
 
 <style lang="scss">
 	p {

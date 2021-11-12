@@ -36,6 +36,8 @@ const makeSnacks = () => {
 	return {
 		subscribe,
 
+		push,
+
 		success,
 		warning,
 		danger,

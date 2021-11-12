@@ -4,6 +4,7 @@
 	import Button from '$lib/components/Button.svelte';
 	import Capitalize from '$lib/components/Capitalize.svelte';
 	import ChangePasswordModal from '$lib/modals/ChangePasswordModal.svelte';
+	import DeleteAccountModal from '$lib/modals/DeleteAccountModal.svelte';
 	import { modals } from '$lib/stores';
 	import { snacks } from '$lib/stores/snacks';
 	import { API } from '$lib/utils';
@@ -25,7 +26,9 @@
 	<Button --width="max-content" on:click={() => modals.open(ChangePasswordModal)}>
 		Changer de mot de passe
 	</Button>
-	<Button --width="max-content">Supprimer mon compte</Button>
+	<Button --width="max-content" on:click={() => modals.open(DeleteAccountModal)}>
+		Supprimer mon compte
+	</Button>
 </main>
 
 <style>

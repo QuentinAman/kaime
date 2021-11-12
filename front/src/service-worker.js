@@ -1,8 +1,6 @@
 // @ts-nocheck
 import { build, files, timestamp } from '$service-worker';
 
-console.log('bonsoir');
-
 const worker = self;
 const CACHE_NAME = `static-cache-${timestamp}`;
 
