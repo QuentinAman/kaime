@@ -106,14 +106,26 @@ defmodule BackWeb.UserController do
   end
 
   def add_manager(conn, %{"id" => team_id, "user" => user_email}) do
-    with {:ok, %User{} = user} <- App.get_user_by_email!(user_email),
-         {:ok, %App.Team{}} <- App.get_team!(team_id),
-         {:ok, %User{}} <-
-           App.update_user(user, %{
-             "role" => 2,
-             "team" => team_id
-           }) do
-      render(conn, "message.json", message: "Un nouveau manager a été ajouté")
+    IO.inspect(App.get_team!(team_id))
+
+    cond do
+      {:error, "L'utilisateur n'existe pas"} == App.get_user_by_email!(user_email) ->
+        render(conn, "error.json", message: "L'utilisateur n'existe pas")
+
+      {:error, "L'équipe n'existe pas"} == App.get_team!(team_id) ->
+        IO.inspect("test")
+        render(conn, "error.json", message: "L'équipe n'existe pas")
+
+      true ->
+        {:ok, %User{} = user} = App.get_user_by_email!(user_email)
+
+        with {:ok, %User{}} <-
+               App.update_user(user, %{
+                 "role" => 1,
+                 "team" => team_id
+               }) do
+          render(conn, "message.json", message: "Un nouveau manager a été ajouté")
+        end
     end
   end
 end

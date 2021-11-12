@@ -4,7 +4,7 @@ defmodule Back.ManagerPlug do
   def init(opts), do: opts
 
   def call(conn, _opts) do
-    if conn.assigns[:role] < 1 do
+    if conn.assigns[:role] >= 1 do
       success(conn)
     else
       forbidden(conn, "not_enough_rights")

@@ -64,7 +64,7 @@ defmodule BackWeb.Router do
       pipe_through(:auth)
       pipe_through(:manager)
 
-      # get("/team", TeamController, :show) #
+      get("/team", TeamController, :show)
       # post("/team", UserController, :add_to_team) #
       # patch("/team", UserController, :remove_from_team) #
     end

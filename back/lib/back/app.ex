@@ -38,6 +38,11 @@ defmodule Back.App do
     end
   end
 
+  def get_users_by_team(team) do
+    query = from(u in User, where: u.team == ^team)
+    users = Repo.all(query)
+  end
+
   def create_user(attrs \\ %{}) do
     %{"password" => password} = attrs
 
@@ -170,7 +175,7 @@ defmodule Back.App do
     team = Repo.one(query)
 
     if(is_nil(team)) do
-      {:error, "L'utilisateur n'existe pas"}
+      {:error, "L'équipe n'existe pas"}
     else
       {:ok, team}
     end
