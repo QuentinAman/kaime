@@ -4,6 +4,8 @@ defmodule Back.AdminPlug do
   def init(opts), do: opts
 
   def call(conn, _opts) do
+    IO.inspect(conn.assigns[:role])
+
     if conn.assigns[:role] == 2 do
       success(conn)
     else

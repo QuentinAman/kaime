@@ -46,6 +46,7 @@ defmodule BackWeb.Router do
 
     # ADMIN ROUTES
     scope "/admin" do
+      pipe_through(:auth)
       pipe_through(:admin)
 
       delete("/user", UserController, :delete_user)
@@ -59,6 +60,7 @@ defmodule BackWeb.Router do
 
     # MANAGER ROUTES
     scope "/manager" do
+      pipe_through(:auth)
       pipe_through(:manager)
 
       # get("/team", TeamController, :show) #
