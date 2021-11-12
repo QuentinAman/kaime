@@ -13,6 +13,8 @@ services:
         networks:
             - private
         command: bash -c "mix local.hex --force && mix local.rebar --force && mix deps.get && mix do compile && /app/entrypoint.sh"
+        volumes:
+            - ./back:/app
     db:
         image: postgres:9.6
         environment:
@@ -26,8 +28,6 @@ services:
             - pgdata:/var/lib/postgresql/data
         networks:
             - private
-        volumes:
-            - ./back:/app
     front:
         build:
             context: ./front/
