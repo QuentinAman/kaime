@@ -16,4 +16,16 @@ defmodule BackWeb.TeamView do
       name: team.name
     }
   end
+
+  def render("message.json", %{message: message}) do
+    %{
+      message: message
+    }
+  end
+
+  def render("error.json", %{message: message}) do
+    %{
+      message: message
+    }
+  end
 end

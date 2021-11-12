@@ -4,7 +4,7 @@ defmodule BackWeb.UserController do
   alias Back.App
   alias Back.App.User
 
-  action_fallback BackWeb.FallbackController
+  action_fallback(BackWeb.FallbackController)
 
   def signup(conn, user) do
     case App.create_user(user) do
@@ -102,6 +102,26 @@ defmodule BackWeb.UserController do
 
     with {:ok, %User{} = user} <- App.update_user(user, %{"role" => role}) do
       render(conn, "show.json", user: user)
+    end
+  end
+
+  def add_manager(conn, %{"id" => team_id, "user" => user_email}) do
+    with {:error, message} <- App.get_user_by_email!(user_email) do
+      render(conn, "error.json", message: message)
+    end
+
+    with {:error, message} <- App.get_team!(team_id) do
+      render(conn, "error.json", message: message)
+    end
+
+    {:ok, user} = App.get_user_by_email!(user_email)
+
+    with {:ok, %User{} = user} <-
+           App.update_user(user, %{
+             "role" => 2,
+             "team" => team_id
+           }) do
+      render(conn, "message.json", message: "Un nouveau manager a été ajouté")
     end
   end
 end

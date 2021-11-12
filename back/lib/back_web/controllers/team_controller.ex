@@ -25,7 +25,7 @@ defmodule BackWeb.TeamController do
   end
 
   def update(conn, %{"id" => id, "name" => name}) do
-    team = App.get_team!(id)
+    {:ok, team} = App.get_team!(id)
 
     with {:ok, %Team{} = team} <- App.update_team(team, %{"name" => name}) do
       render(conn, "show.json", team: team)
@@ -33,13 +33,16 @@ defmodule BackWeb.TeamController do
   end
 
   def delete(conn, %{"id" => id}) do
-    team = App.get_team!(id)
+    {:ok, team} = App.get_team!(id)
 
-    with {:ok, %Team{}} <- App.delete_team(team) do
-      conn
-      |> Phoenix.Controller.render(BackWeb.WorkingtimeView, "message.json",
-        message: "Supprimée avec succès"
-      )
+    try do
+      App.delete_team(team)
+      render(conn, "message.json", message: "Supprimée avec succès")
+    rescue
+      _ ->
+        render(conn, "error.json",
+          message: "Une erreur est survenue, supprimez les membres avant l'équipe."
+        )
     end
   end
 end

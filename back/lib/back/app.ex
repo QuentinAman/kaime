@@ -14,7 +14,7 @@ defmodule Back.App do
 
   def check_password(password) do
     case password do
-      "" -> {:error, "empty_password"}
+      "" -> {:error, "Mot de passe vide"}
       _ -> {:ok, password: password}
     end
   end
@@ -26,6 +26,17 @@ defmodule Back.App do
   end
 
   def get_user!(id), do: Repo.get!(User, id)
+
+  def get_user_by_email!(email) do
+    query = from(u in User, where: u.email == ^email)
+    user = Repo.one(query)
+
+    if(is_nil(user)) do
+      {:error, "L'utilisateur n'existe pas"}
+    else
+      {:ok, user}
+    end
+  end
 
   def create_user(attrs \\ %{}) do
     %{"password" => password} = attrs
@@ -52,11 +63,11 @@ defmodule Back.App do
   end
 
   def login(email, password) do
-    query = from u in User, where: u.email == ^email
+    query = from(u in User, where: u.email == ^email)
     user = Repo.one(query)
 
     if is_nil(user) do
-      {:error, "user doesn't exists"}
+      {:error, "L'utilisateur n'existe pas"}
     else
       with {:ok, %User{} = connectedUser} <-
              Bcrypt.check_pass(user, password, hash_key: :password) do
@@ -104,7 +115,7 @@ defmodule Back.App do
   end
 
   def get_my_workingtimes(user_id) do
-    query = from w in Workingtime, where: w.user == ^user_id
+    query = from(w in Workingtime, where: w.user == ^user_id)
     Repo.all(query)
   end
 
@@ -154,7 +165,16 @@ defmodule Back.App do
     Repo.all(Team)
   end
 
-  def get_team!(id), do: Repo.get!(Team, id)
+  def get_team!(id) do
+    query = from(t in Team, where: t.id == ^id)
+    team = Repo.one(query)
+
+    if(is_nil(team)) do
+      {:error, "L'utilisateur n'existe pas"}
+    else
+      {:ok, team}
+    end
+  end
 
   def create_team(attrs \\ %{}) do
     %Team{}

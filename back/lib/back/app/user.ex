@@ -3,13 +3,13 @@ defmodule Back.App.User do
   import Ecto.Changeset
 
   schema "users" do
-    field :email, :string
-    field :firstname, :string
-    field :lastname, :string
-    field :password, :string
-    field :role, :integer, default: 0
-    field :team, :id
-    field :clock, :id
+    field(:email, :string)
+    field(:firstname, :string)
+    field(:lastname, :string)
+    field(:password, :string)
+    field(:role, :integer, default: 0)
+    field(:team, :id)
+    field(:clock, :id)
 
     timestamps()
   end
@@ -32,7 +32,7 @@ defmodule Back.App.User do
 
   def changeset(user, attrs, "update") do
     user
-    |> cast(attrs, [:email, :password, :role, :firstname, :lastname, :clock])
+    |> cast(attrs, [:email, :password, :role, :firstname, :lastname, :clock, :team])
     |> validate_required([:email, :password, :role])
     |> unique_constraint(:email)
   end
