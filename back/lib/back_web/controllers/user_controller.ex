@@ -106,8 +106,16 @@ defmodule BackWeb.UserController do
   end
 
   def add_manager(conn, %{"id" => team_id, "user" => user_email}) do
-    IO.inspect(App.get_team!(team_id))
+    add_teammate(conn, team_id, user_email, 1)
+  end
 
+  def add_user(conn, %{"user" => user_email}) do
+    user = App.get_user!(conn.assigns[:id])
+    {:ok, team} = App.get_team!(user.team)
+    add_teammate(conn, team.id, user_email, 0)
+  end
+
+  def add_teammate(conn, team_id, user_email, role) do
     cond do
       {:error, "L'utilisateur n'existe pas"} == App.get_user_by_email!(user_email) ->
         render(conn, "error.json", message: "L'utilisateur n'existe pas")
@@ -121,10 +129,50 @@ defmodule BackWeb.UserController do
 
         with {:ok, %User{}} <-
                App.update_user(user, %{
-                 "role" => 1,
+                 "role" => role,
                  "team" => team_id
                }) do
-          render(conn, "message.json", message: "Un nouveau manager a été ajouté")
+          render(conn, "message.json", message: "Un nouvel équipier a été ajouté")
+        end
+    end
+  end
+
+  def remove_manager(conn, %{"id" => team_id, "user" => user_email}) do
+    remove_teammate(conn, team_id, user_email)
+  end
+
+  def remove_user(conn, %{"user" => user_email}) do
+    user = App.get_user!(conn.assigns[:id])
+    {:ok, team} = App.get_team!(user.team)
+    remove_teammate(conn, team.id, user_email)
+  end
+
+  def remove_teammate(conn, team_id, user_email) do
+    res_user = App.get_user_by_email!(user_email)
+    res_team = App.get_team!(team_id)
+
+    {:ok, user} = res_user
+
+    cond do
+      {:error, "L'utilisateur n'existe pas"} == res_user ->
+        render(conn, "error.json", message: "L'utilisateur n'existe pas")
+
+      {:error, "L'équipe n'existe pas"} == res_team ->
+        render(conn, "error.json", message: "L'équipe n'existe pas")
+
+      user.team != team_id ->
+        render(conn, "error.json", message: "L'utilisateur ne fait pas parti de l'équipe")
+
+      user.team == nil ->
+        render(conn, "error.json", message: "L'utilisateur ne fait pas parti d'une équipe")
+
+      true ->
+        with {:ok, %User{}} <-
+               App.update_user(user, %{
+                 "role" => 0,
+                 "team" => nil
+               }) do
+          render(conn, "message.json", message: "L'équipier a été supprimé")
         end
     end
   end
