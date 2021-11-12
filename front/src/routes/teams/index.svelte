@@ -30,11 +30,13 @@
 	import { flip } from 'svelte/animate';
 	import { expoOut } from 'svelte/easing';
 	import { snacks } from '$lib/stores';
+	import Input from '$lib/components/Input.svelte';
 
 	export let teams = [];
 
 	let visible = false;
 	let name = '';
+	let query = '';
 
 	const createTeam = async () => {
 		const team = await API.post('/admin/teams', { name });
@@ -43,16 +45,21 @@
 		name = '';
 		visible = false;
 	};
+
+	$: filtered = teams.filter((t) => new RegExp(query, 'gi').test(t.name));
 </script>
 
 <main>
 	<h1>Les équipes</h1>
-	<Form heading="Créer une équipe" bind:visible submit={createTeam} let:submitting>
-		<Capitalize bind:value={name} placeholder="Nom de l'équipe" autofocus />
-		<Button type="submit" disabled={submitting}>Créer</Button>
-	</Form>
+	<div class="head">
+		<Input bind:value={query} placeholder="Rechercher..." icon="Search" />
+		<Form heading="Créer une équipe" bind:visible submit={createTeam} let:submitting>
+			<Capitalize bind:value={name} placeholder="Nom de l'équipe" autofocus />
+			<Button type="submit" disabled={submitting}>Créer</Button>
+		</Form>
+	</div>
 	<ul>
-		{#each teams as team (team.id)}
+		{#each filtered as team (team.id)}
 			<li transition:scale|local animate:flip={{ easing: expoOut, duration: 800 }}>
 				<Team
 					bind:team
@@ -80,6 +87,13 @@
 <style lang="scss">
 	main {
 		padding: 5vw;
+		padding-top: 0;
+	}
+
+	.head {
+		display: grid;
+		gap: 2em;
+		margin: 4em 0;
 	}
 
 	ul {
@@ -91,6 +105,11 @@
 
 	h1 {
 		text-align: center;
-		margin-bottom: 2em;
+	}
+
+	@media (min-width: 768px) {
+		.head {
+			padding: 0 25vw;
+		}
 	}
 </style>
