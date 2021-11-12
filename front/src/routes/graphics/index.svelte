@@ -1,6 +1,5 @@
 <script>
 
-import MonthChart from "$lib/components/MonthChart.svelte";
 import Tab from "$lib/components/Tab.svelte";
 import Tabs from "$lib/components/Tabs.svelte";
 
