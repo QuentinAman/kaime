@@ -106,17 +106,9 @@ defmodule BackWeb.UserController do
   end
 
   def add_manager(conn, %{"id" => team_id, "user" => user_email}) do
-    with {:error, message} <- App.get_user_by_email!(user_email) do
-      render(conn, "error.json", message: message)
-    end
-
-    with {:error, message} <- App.get_team!(team_id) do
-      render(conn, "error.json", message: message)
-    end
-
-    {:ok, user} = App.get_user_by_email!(user_email)
-
-    with {:ok, %User{} = user} <-
+    with {:ok, %User{} = user} <- App.get_user_by_email!(user_email),
+         {:ok, %App.Team{}} <- App.get_team!(team_id),
+         {:ok, %User{}} <-
            App.update_user(user, %{
              "role" => 2,
              "team" => team_id
