@@ -53,9 +53,10 @@ defmodule BackWeb.Router do
       get("/", UserController, :index)
       patch("/update_role", UserController, :update_role)
       get("/teams", TeamController, :index)
-      # post("/create_team", TeamController, :create_team) #
-      # patch("create_manager", UserManager, :create_manager) #
-      # delete("/delete_team", TeamController, :delete_team) #
+      post("/team", TeamController, :create)
+      patch("/team", TeamController, :update)
+      # patch("/create_manager", UserManager, :create_manager) #
+      delete("/team", TeamController, :delete)
     end
 
     # MANAGER ROUTES
