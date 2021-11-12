@@ -1,7 +1,12 @@
 <script context="module" lang="ts">
 	import type { LoadInput, LoadOutput } from '@sveltejs/kit';
+	import { cookie } from '$lib/stores';
 
 	const pages = ['/login', '/register'];
+
+	cookie.subscribe(($cookie) => {
+		if ($cookie.token) API.token = $cookie.token;
+	});
 
 	export async function load({ page, session }: LoadInput) {
 		const output: LoadOutput = {};
@@ -29,10 +34,7 @@
 	import Modals from '$lib/components/Modals.svelte';
 	import Snacks from '$lib/components/Snacks.svelte';
 
-	import { cookie } from '$lib/stores';
 	import { API } from '$lib/utils';
-
-	$: if ($cookie.token) API.token = $cookie.token;
 </script>
 
 {#if $session.user && !pages.includes($page.path)}

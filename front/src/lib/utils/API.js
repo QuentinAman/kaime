@@ -23,7 +23,12 @@ const request = async (endpoint, init = {}, notify = true) => {
 		const json = await res.json();
 
 		if (json.message && notify) {
-			snacks.normal(json.message);
+			let type = 'message';
+
+			if (res.status >= 200 && res.status < 300) type = 'success';
+			else if (res.status >= 400) type = 'danger';
+
+			snacks.push(json.message, type);
 		}
 
 		if (json.errors) {
@@ -52,6 +57,7 @@ export class API {
 
 	/**
 	 * @param {string} endpoint
+	 * @param {boolean=} notify
 	 */
 	static get(endpoint, notify) {
 		return request(endpoint, { method: 'GET' }, notify);
@@ -59,7 +65,8 @@ export class API {
 
 	/**
 	 * @param {string} endpoint
-	 * @param {*} body
+	 * @param {*=} body
+	 * @param {boolean=} notify
 	 */
 	static post(endpoint, body, notify) {
 		return request(endpoint, { method: 'POST', body }, notify);
@@ -67,7 +74,8 @@ export class API {
 
 	/**
 	 * @param {string} endpoint
-	 * @param {*} body
+	 * @param {*=} body
+	 * @param {boolean=} notify
 	 */
 	static patch(endpoint, body, notify) {
 		return request(endpoint, { method: 'PATCH', body }, notify);
@@ -75,7 +83,8 @@ export class API {
 
 	/**
 	 * @param {string} endpoint
-	 * @param {*} body
+	 * @param {*=} body
+	 * @param {boolean=} notify
 	 */
 	static put(endpoint, body, notify) {
 		return request(endpoint, { method: 'PUT', body }, notify);
@@ -83,7 +92,8 @@ export class API {
 
 	/**
 	 * @param {string} endpoint
-	 * @param {*} body
+	 * @param {*=} body
+	 * @param {boolean=} notify
 	 */
 	static delete(endpoint, body, notify) {
 		return request(endpoint, { method: 'DELETE', body }, notify);

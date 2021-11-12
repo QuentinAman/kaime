@@ -53,7 +53,7 @@ defmodule BackWeb.Router do
       get("/", UserController, :index)
       patch("/update_role", UserController, :update_role)
       get("/teams", TeamController, :index)
-      post("/teams/:id", TeamController, :create)
+      post("/teams", TeamController, :create)
       patch("/teams/:id", TeamController, :update)
       patch("/teams/:id/manager", UserController, :add_manager)
       delete("/teams/:id", TeamController, :delete)

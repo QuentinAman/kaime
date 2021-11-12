@@ -7,4 +7,4 @@
 	$: value = value.replace(/\b[a-z]/, (m) => m.toUpperCase());
 </script>
 
-<Input bind:value {placeholder} on:update />
+<Input bind:value {placeholder} on:update {...$$restProps} />
