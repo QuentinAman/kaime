@@ -121,7 +121,6 @@ defmodule BackWeb.UserController do
         render(conn, "error.json", message: "L'utilisateur n'existe pas")
 
       {:error, "L'équipe n'existe pas"} == App.get_team!(team_id) ->
-        IO.inspect("test")
         render(conn, "error.json", message: "L'équipe n'existe pas")
 
       true ->
@@ -151,7 +150,11 @@ defmodule BackWeb.UserController do
     res_user = App.get_user_by_email!(user_email)
     res_team = App.get_team!(team_id)
 
-    {:ok, user} = res_user
+    user = {}
+
+    if {:ok, %User{}} == res_user do
+      {:ok, user} = res_user
+    end
 
     cond do
       {:error, "L'utilisateur n'existe pas"} == res_user ->
@@ -160,11 +163,11 @@ defmodule BackWeb.UserController do
       {:error, "L'équipe n'existe pas"} == res_team ->
         render(conn, "error.json", message: "L'équipe n'existe pas")
 
-      user.team != team_id ->
-        render(conn, "error.json", message: "L'utilisateur ne fait pas parti de l'équipe")
-
       user.team == nil ->
         render(conn, "error.json", message: "L'utilisateur ne fait pas parti d'une équipe")
+
+      user.team != team_id ->
+        render(conn, "error.json", message: "L'utilisateur ne fait pas parti de l'équipe")
 
       true ->
         with {:ok, %User{}} <-
